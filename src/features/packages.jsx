@@ -19,7 +19,7 @@ export function Packages() {
         <Icon name="calendar" size={33}/>
         <span><strong>{tx(plan.name)}</strong><small>{t("pujaParcels", { count: numeral(plan.drops), cadence: tx(plan.cadence) })} <span>{t("durationWrap", { duration: tx(plan.duration) })}</span></small></span>
         <b>{money(plan.pricePaise)}</b><Icon name="chevron" size={19}/>
-      </Link>)}</div> : <LoadState query={plans}/>}
+      </Link>)}</div> : <LoadState query={plans} kind="list"/>}
     </div>
   </section>;
 }
@@ -28,7 +28,7 @@ export function PackageDetail() {
   const { slug } = useParams();
   const { t, tx } = useI18n();
   const plan = useApi("/plans/" + encodeURIComponent(slug));
-  if (!plan.data) return <section className="page"><LoadState query={plan}/></section>;
+  if (!plan.data) return <section className="page"><LoadState query={plan} kind="product"/></section>;
   const data = plan.data;
   const cadence = tx(data.cadence);
   return <section className="page">
@@ -61,7 +61,7 @@ export function MyPackages() {
     <Title back="/account">{t("myPackages")}</Title>
     {plans ? plans.length ? <div className="order-list">{plans.map(order => <Link className="action-row panel" to={"/orders/" + order.orderRef + "/package"} key={order.orderRef}>
       <Icon name="box" size={28}/><span><strong>{tx(order.lines[0].name)}</strong><small>{order.orderRef} · {t("deliveredOf", { done: numeral(order.drops.filter(drop => drop.state === "delivered").length), total: numeral(order.drops.length) })}</small></span><Icon name="chevron" size={18}/>
-    </Link>)}</div> : <Empty title={t("noPackages")} to="/packages" action={t("explorePackages")}/> : <LoadState query={orders}/>}
+    </Link>)}</div> : <Empty title={t("noPackages")} to="/packages" action={t("explorePackages")}/> : <LoadState query={orders} kind="list"/>}
   </section>;
 }
 

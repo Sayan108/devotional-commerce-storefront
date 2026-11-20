@@ -16,7 +16,7 @@ const mobileLinks = [["/", "home", "home"], ["/categories", "categories", "grid"
 function Wordmark() {
   const { lang, t } = useI18n();
   const bengali = lang === "bn";
-  return <Link className={"wordmark" + (bengali ? " bn" : "")} to="/" lang={lang} aria-label={t("homeAria")}>{bengali ? "নৈবেদ্য" : "Naivedya"}</Link>;
+  return <Link className={"wordmark" + (bengali ? " bn" : "")} to="/" lang={lang} aria-label={t("homeAria")}><img src="/logo.svg" alt=""/>{bengali ? "নৈবেদ্য" : "Naivedya"}</Link>;
 }
 
 function LanguageSwitch() {

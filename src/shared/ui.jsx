@@ -60,10 +60,45 @@ export function ErrorMessage({ error }) {
   return <p className="form-error" role="alert">{tx(message)}</p>;
 }
 
-export function LoadState({ query }) {
+function Bone({ className = "" }) {
+  return <span className={"bone " + className}/>;
+}
+
+function ProductBones({ count, layout = "" }) {
+  return <div className={(layout === "compact" ? "popular-grid" : "product-grid")} aria-hidden="true">{Array.from({ length: count }, (_, index) =>
+    <div className={"product-card skeleton-card " + layout} key={index}>
+      <Bone className="product-photo"/>
+      <span className="product-card-copy"><Bone className="bone-line"/><Bone className="bone-price"/>{layout !== "compact" && <Bone className="bone-button"/>}</span>
+    </div>
+  )}</div>;
+}
+
+const skeletons = {
+  page: <div className="skeleton-page" aria-hidden="true"><Bone className="bone-title"/><Bone className="bone-line"/><Bone className="bone-line"/><Bone className="bone-line"/></div>,
+  home: <div className="home-sections" aria-hidden="true">
+    <div className="category-tiles">{Array.from({ length: 5 }, (_, index) => <div className="skeleton-tile" key={index}><Bone/><Bone className="bone-line"/></div>)}</div>
+    <ProductBones count={4} layout="compact"/>
+    <div className="house-package skeleton-package"><Bone className="bone-photo"/><span className="skeleton-stack"><Bone className="bone-title"/><Bone className="bone-line"/><Bone className="bone-button"/></span></div>
+  </div>,
+  products: <ProductBones count={8}/>,
+  categories: <div className="category-grid" aria-hidden="true">{Array.from({ length: 6 }, (_, index) => <div className="skeleton-category" key={index}><Bone className="bone-photo"/><Bone className="bone-line"/></div>)}</div>,
+  product: <div className="skeleton-detail" aria-hidden="true"><Bone className="bone-photo"/><span className="skeleton-stack"><Bone className="bone-title"/><Bone className="bone-price"/><Bone className="bone-line"/><Bone className="bone-line"/><Bone className="bone-button"/></span></div>,
+  search: <div className="search-results" aria-hidden="true">{Array.from({ length: 3 }, (_, index) =>
+    <div className="product-card skeleton-card horizontal" key={index}><Bone className="product-photo"/><span className="product-card-copy"><Bone className="bone-line"/><Bone className="bone-price"/><Bone className="bone-button"/></span></div>
+  )}</div>,
+  list: <div className="order-list" aria-hidden="true">{Array.from({ length: 4 }, (_, index) => <div className="skeleton-row" key={index}><Bone className="bone-photo"/><span className="skeleton-stack"><Bone className="bone-line"/><Bone className="bone-price"/></span></div>)}</div>
+};
+
+export function LoadState({ query, kind = "page" }) {
   const { t } = useI18n();
-  if (query.error) return <div className="empty"><ErrorMessage error={query.error}/><Button secondary onClick={query.reload}>{t("tryAgain")}</Button></div>;
-  return <p className="loading" role="status">{t("loading")}</p>;
+  if (query?.error) return <div className="empty"><ErrorMessage error={query.error}/><Button secondary onClick={query.reload}>{t("tryAgain")}</Button></div>;
+  return <div className="skeleton" role="status" aria-live="polite" aria-busy="true" aria-label={t("loading")}>{skeletons[kind] || skeletons.page}</div>;
+}
+
+export function Photo({ src, alt = "", ...props }) {
+  const [failed, setFailed] = React.useState(false);
+  if (!src || failed) return <span className="bone photo-fallback" role="img" aria-label={alt}/>;
+  return <img src={src} alt={alt} onError={() => setFailed(true)} {...props}/>;
 }
 
 export function Empty({ title, children, to, action, image }) {
@@ -88,7 +123,7 @@ export function BuyerGate({ account = false, children }) {
   const { t } = useI18n();
   const location = useLocation();
   if (authError) return <div className="page"><ErrorMessage error={authError}/><Button onClick={() => window.location.reload()}>{t("tryAgain")}</Button></div>;
-  if (!buyer) return <p className="loading" role="status">{t("checkingSession")}</p>;
+  if (!buyer) return <LoadState kind="page"/>;
   if (!buyer.verified || (account && !buyer.account)) {
     const next = encodeURIComponent(location.pathname + location.search);
     return <Navigate replace to={"/login?next=" + next}/>;

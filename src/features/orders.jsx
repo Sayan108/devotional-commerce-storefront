@@ -190,7 +190,7 @@ export function Orders() {
       <button type="button" aria-pressed={past} onClick={() => setParams({ tab: "past" })}>{t("pastOrders")}</button>
     </div>
     {items ? items.length ? <div className="order-list">{items.map(order => <OrderCard order={order} key={order.orderRef}/>)}</div> :
-      <Empty title={past ? t("noPast") : t("noRecent")} to="/shop" action={t("heroCta")}/> : <LoadState query={orders}/>}
+      <Empty title={past ? t("noPast") : t("noRecent")} to="/shop" action={t("heroCta")}/> : <LoadState query={orders} kind="list"/>}
   </section>;
 }
 

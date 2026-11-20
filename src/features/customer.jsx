@@ -93,7 +93,7 @@ export function Addresses() {
         </article>
       )}</div> : <Empty title={t("noAddresses")}/>}
       <Button className="wide" icon="plus" onClick={() => edit(initial)}>{t("addAddress")}</Button>
-    </> : <LoadState query={addresses}/>}
+    </> : <LoadState query={addresses} kind="list"/>}
   </section>;
 }
 
@@ -172,7 +172,7 @@ export function Returns() {
 
   return <section className="page narrow order-page">
     <AccountBanner title={t("helpAndReturns")} intro={t("returnsIntro")} back="/account"/>
-    {!options ? <LoadState query={orders}/> : !options.length ? <Empty title={t("noPaid")} to="/orders" action={t("myOrders")}>{t("choosePaidHint")}</Empty> :
+    {!options ? <LoadState query={orders} kind="list"/> : !options.length ? <Empty title={t("noPaid")} to="/orders" action={t("myOrders")}>{t("choosePaidHint")}</Empty> :
       <form className="stack" onSubmit={submit}>
         <label>{t("selectOrder")}
           <select value={selection?.orderRef || ""} required onChange={event => { setRef(event.target.value); action.setError(null); }}>

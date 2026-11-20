@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { Button, Empty, ErrorMessage, Icon, LoadState, Notice, Stepper, Title, Totals } from "../shared/ui";
+import { Button, Empty, ErrorMessage, Icon, LoadState, Notice, Photo, Stepper, Title, Totals } from "../shared/ui";
 import { request, useAction, useApi } from "../shared/api";
 import { assetUrl } from "../env.ts";
 import { artwork, money, numeral } from "../shared/format";
@@ -33,7 +33,7 @@ export function ProductCard({ product, compact = false, horizontal = false }) {
   const to = "/products/" + product.slug;
   const name = tx(product.name);
   return <article className={"product-card" + (compact ? " compact" : "") + (horizontal ? " horizontal" : "")}>
-    <Link className="product-photo" to={to} aria-label={name}><img src={assetUrl(product.image)} alt="" loading="lazy"/></Link>
+    <Link className="product-photo" to={to} aria-label={name}><Photo src={assetUrl(product.image)} alt="" loading="lazy"/></Link>
     <div className="product-card-copy">
       <h3><Link to={to}>{name}{variant.packSize !== "1 pc" && <small> ({tx(variant.packSize)})</small>}</Link></h3>
       <strong className="card-price">{money(variant.pricePaise)}</strong>
@@ -79,7 +79,7 @@ export function Home() {
           <img src={artwork("package-hero")} alt={t("packageAlt")} loading="lazy"/>
           <div><h2>{t("pujaPackages")}</h2><p>{t("packageBlurb")}</p><Button to="/packages">{t("explorePackages")}</Button></div>
         </section>
-      </> : <LoadState query={home}/>}
+      </> : <LoadState query={home} kind="home"/>}
     </div>
   </>;
 }
@@ -91,7 +91,7 @@ export function Categories() {
     <Title>{t("allCategories")}</Title>
     {listing.data ? <div className="category-grid">{listing.data.items.map(category =>
       <Link to={categoryLink(category.slug)} key={category.slug} className="category-card"><img src={assetUrl(category.image)} alt="" loading="lazy"/><strong>{tx(category.name)} <Icon name="chevron" size={18}/></strong></Link>
-    )}</div> : <LoadState query={listing}/>}
+    )}</div> : <LoadState query={listing} kind="categories"/>}
   </section>;
 }
 
@@ -163,7 +163,7 @@ export function Shop() {
     {listing.data ? (listing.data.items.length ?
       <div className="product-grid">{listing.data.items.map(product => <ProductCard product={product} key={product.id}/>)}</div> :
       <Empty title={t("noFilterMatch")}><button className="text-button" type="button" onClick={() => setParams({})}>{t("clearFilters")}</button></Empty>
-    ) : <LoadState query={listing}/>}
+    ) : <LoadState query={listing} kind="products"/>}
     {filter && <FilterDialog apply={patchFilters} params={params} close={() => setFilter(false)} fixedCategory={slug} collections={collections.data?.items || []}/>}
   </section>;
 }
@@ -197,7 +197,7 @@ export function Search() {
         <div className="section-title"><h2>{t("productsFor", { query: tx(q) })}</h2></div>
         <div className="search-results">{search.data.items.map(product => <ProductCard product={product} key={product.id} horizontal/>)}</div>
       </section> : <EmptySearch q={q} commit={commit}/>}
-    </> : q ? <LoadState query={search}/> : <EmptySearch commit={commit}/>}
+    </> : q ? <LoadState query={search} kind="search"/> : <EmptySearch commit={commit}/>}
   </section>;
 }
 
@@ -216,7 +216,7 @@ export function Product() {
   const { slug } = useParams();
   const product = useApi("/products/" + encodeURIComponent(slug));
   return <section className="page product-page">
-    {product.data ? <ProductDetail key={slug} product={product.data}/> : <LoadState query={product}/>}
+    {product.data ? <ProductDetail key={slug} product={product.data}/> : <LoadState query={product} kind="product"/>}
   </section>;
 }
 
@@ -228,7 +228,7 @@ function ProductDetail({ product }) {
   const selected = product.variants.find(variant => variant.id === variantId);
   const name = tx(product.name);
   return <div className="product-detail">
-    <div className="detail-photo"><img src={assetUrl(product.image)} alt={name}/></div>
+    <div className="detail-photo"><Photo src={assetUrl(product.image)} alt={name}/></div>
     <div className="detail-info">
       <div className="detail-heading">
         <div><h1>{name}</h1><strong>{money(selected.pricePaise)}</strong></div><Heart product={product}/>
@@ -267,7 +267,7 @@ export function Wishlist() {
           </div>
           <button type="button" className="icon-button remove-button" aria-label={t("removeNamed", { name })} onClick={() => toggleSaved(product.id)}><Icon name="close" size={19}/></button>
         </article>;
-      })}</div> : <LoadState query={listing}/>}
+      })}</div> : <LoadState query={listing} kind="list"/>}
   </section>;
 }
 
@@ -284,7 +284,7 @@ export function Bag() {
   return <section className="page">
     <Title intro={t("itemCount", { count: numeral(count) })}>{t("shoppingBag")}</Title>
     {legacy && <div className="legacy-plan"><Button secondary to={"/packages/" + encodeURIComponent(legacy.id) + "/checkout"}>{t("checkoutSaved")}</Button><button className="text-button" type="button" onClick={() => updateQuantity(legacy.id, 0)}>{t("removePackage")}</button></div>}
-    {!lines.length ? <Empty title={legacy ? t("individualItems") : t("bagEmpty")} to="/shop" action={t("heroCta")}/> : !listing.data ? <LoadState query={listing}/> :
+    {!lines.length ? <Empty title={legacy ? t("individualItems") : t("bagEmpty")} to="/shop" action={t("heroCta")}/> : !listing.data ? <LoadState query={listing} kind="list"/> :
       <div className="two-column bag-layout">
         <div className="bag-items">{lines.map(({ id, quantity, product, variant }) => {
           const name = product ? tx(product.name) : t("item");
