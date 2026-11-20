@@ -1,0 +1,8 @@
+:root{
+ --paper:#faf6ed; --ink:#25251f; --green:#224638; --red:#993b2f; --leaf:#5c6258; --line:#d9d2c4; --brass:#ae8646;
+ --display:"Cormorant Garamond",Georgia,serif; --body:"DM Sans",Arial,sans-serif; --bn:"Noto Serif Bengali",serif;
+ --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s6:24px; --s8:32px; --s12:48px; --s16:64px; --s24:96px;
+ --radius-control:6px; --radius-media:12px; --tap:44px; --focus:3px solid #993b2f; --feedback:140ms; --enter:220ms; --fade:280ms
+}
+:focus-visible{outline:var(--focus);outline-offset:4px}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0s!important;transition-duration:0s!important;scroll-behavior:auto!important}}
