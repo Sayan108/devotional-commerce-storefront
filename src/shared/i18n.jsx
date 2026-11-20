@@ -44,7 +44,8 @@ export function LanguageProvider({ children }) {
   const value = useMemo(() => ({
     lang, setLang,
     t: (key, vars) => translate(lang, key, vars),
-    tx: text => phrase(lang, text)
+    tx: text => phrase(lang, text),
+    txName: item => lang === "bn" && item.bengali ? item.bengali : phrase(lang, item.name)
   }), [lang]);
   return <Language.Provider value={value}>{children}</Language.Provider>;
 }

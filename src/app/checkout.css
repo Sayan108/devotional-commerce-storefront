@@ -57,6 +57,7 @@
 .address-review .notice > div { display:flex; justify-content:space-between; flex-wrap:wrap; gap:4px 10px; flex:1; }
 .image-line { display:grid; grid-template-columns:75px minmax(0,1fr) auto; gap:11px; padding:9px 0; align-items:start; border-bottom:1px solid var(--line); }
 .image-line img { width:75px; height:60px; object-fit:cover; border-radius:7px; }
+.image-line .catalog-placeholder { width:75px; height:60px; border-radius:7px; }
 .image-line strong, .image-line small { display:block; }
 .image-line small { font-size:var(--text-xs); color:var(--leaf); }
 .quote-expiry { color:var(--leaf); }
@@ -101,7 +102,7 @@
 .order-list, .address-list { display:grid; gap:10px; }
 .order-card { padding:9px; }
 .order-card-link { display:grid; grid-template-columns:65px minmax(0,1fr) auto auto; gap:7px; align-items:center; margin-bottom:8px; }
-.order-card-link img { width:65px; height:65px; border-radius:7px; object-fit:cover; }
+.order-card-link img, .order-card-link .catalog-placeholder { width:100%; height:65px; border-radius:7px; object-fit:cover; }
 .order-card-link small { color:var(--leaf); font-size:var(--text-xs); }
 .order-card .button { min-height:39px; }
 

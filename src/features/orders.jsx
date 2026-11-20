@@ -215,7 +215,8 @@ function OrderCard({ order }) {
   }
   return <article className="panel order-card">
     <Link className="order-card-link" to={root(order)}>
-      <img src={assetUrl(order.lines[0].image)} alt=""/>
+      {order.lines[0].image ? <img src={assetUrl(order.lines[0].image)} alt=""/> :
+        <span className="catalog-placeholder" aria-hidden="true"><Icon name="lotus"/></span>}
       <div><strong>{order.orderRef}</strong><small>{t("itemCount", { count: numeral(order.lines.reduce((total, line) => total + line.quantity, 0)) })} · {money(order.totalPaise)}</small><small>{t("placedOn", { date: dateLabel(order.placedAt) })}</small></div>
       <Badge order={order}/><Icon name="chevron" size={17}/>
     </Link>

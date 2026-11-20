@@ -3,24 +3,27 @@ import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom"
 import { Button, Empty, ErrorMessage, Icon, LoadState, Notice, Photo, Stepper, Title, Totals } from "../shared/ui";
 import { request, useAction, useApi } from "../shared/api";
 import { assetUrl } from "../env.ts";
-import { artwork, money, numeral } from "../shared/format";
+import { artwork, isPriced, money, numeral } from "../shared/format";
 import { HeroMotion } from "../shared/heroMotion";
 import { useI18n } from "../shared/i18n";
 import { useBagCatalog, useStore } from "../shared/store";
 
-const tagKeys = [["brass", "tagBrass"], ["terracotta", "tagTerracotta"], ["hanging", "tagHanging"], ["panchapradip", "tagPancha"]];
 const sortKeys = [["", "sortPopular"], ["price-asc", "sortLow"], ["price-desc", "sortHigh"], ["name", "sortName"]];
 const examples = [["Brass lamp", "exampleBrass"], ["Puja lamp", "examplePuja"], ["Chandan", "exampleChandan"], ["Cotton wicks", "exampleWicks"], ["Arati", "exampleArati"]];
 
-function categoryLink(slug) {
-  return slug === "packages" ? "/packages" : "/collections/" + slug;
+export const pujaKitsPath = "/collections/puja-kits-combos";
+const categoryLink = slug => "/collections/" + slug;
+
+function CatalogPhoto({ image, alt = "", loading }) {
+  if (image) return <Photo src={assetUrl(image)} alt={alt} loading={loading}/>;
+  return <span className="catalog-placeholder" aria-hidden="true"><Icon name="lotus" size={30}/></span>;
 }
 
 function Heart({ product }) {
   const { saved, toggleSaved } = useStore();
-  const { t, tx } = useI18n();
+  const { t, txName } = useI18n();
   const selected = saved.includes(product.id);
-  const name = tx(product.name);
+  const name = txName(product);
   return <button type="button" className={"icon-button save-button" + (selected ? " saved" : "")}
     aria-label={t(selected ? "unsaveItem" : "saveItem", { name })} aria-pressed={selected}
     onClick={() => toggleSaved(product.id)}><Icon name="heart" size={22} filled={selected}/></button>;
@@ -28,16 +31,17 @@ function Heart({ product }) {
 
 export function ProductCard({ product, compact = false, horizontal = false }) {
   const { add } = useStore();
-  const { t, tx } = useI18n();
+  const { t, tx, txName } = useI18n();
   const variant = product.variants[0];
   const to = "/products/" + product.slug;
-  const name = tx(product.name);
+  const name = txName(product);
+  const priced = isPriced(variant.pricePaise);
   return <article className={"product-card" + (compact ? " compact" : "") + (horizontal ? " horizontal" : "")}>
-    <Link className="product-photo" to={to} aria-label={name}><Photo src={assetUrl(product.image)} alt="" loading="lazy"/></Link>
+    <Link className="product-photo" to={to} aria-label={name}><CatalogPhoto image={product.image} loading="lazy"/></Link>
     <div className="product-card-copy">
-      <h3><Link to={to}>{name}{variant.packSize !== "1 pc" && <small> ({tx(variant.packSize)})</small>}</Link></h3>
-      <strong className="card-price">{money(variant.pricePaise)}</strong>
-      {!compact && (variant.stock > 0 ?
+      <h3><Link to={to}>{name}{variant.packSize && variant.packSize !== "1 pc" && <small> ({tx(variant.packSize)})</small>}</Link></h3>
+      <strong className={priced ? "card-price" : "pending-price"}>{priced ? money(variant.pricePaise) : t("pricePending")}</strong>
+      {!compact && priced && (variant.stock > 0 ?
         <Button icon="cart" onClick={() => add(product, variant)}>{t("addToCart")}</Button> :
         <span className="sold-out">{t("soldOut")}</span>)}
     </div>
@@ -50,7 +54,7 @@ const SectionLink = ({ to, children }) => <Link className="section-link" to={to}
 export function Home() {
   const home = useApi("/home");
   const { location } = useStore();
-  const { t, tx } = useI18n();
+  const { t, tx, txName } = useI18n();
   const poster = assetUrl(home.data?.hero?.poster || "/media/hero-lamp.jpg");
   const place = location?.locality ? tx(location.locality) : t("kolkata");
   return <>
@@ -68,7 +72,7 @@ export function Home() {
         <section aria-labelledby="home-categories">
           <div className="section-title"><h2 id="home-categories">{t("shopByCategory")}</h2><SectionLink to="/categories">{t("viewAll")}</SectionLink></div>
           <div className="category-tiles">{home.data.collections.map(category =>
-            <Link to={categoryLink(category.slug)} key={category.slug}><img src={assetUrl(category.thumbnail)} alt=""/><span>{tx(category.name)}</span></Link>
+            <Link to={categoryLink(category.slug)} key={category.slug}><CatalogPhoto image={category.thumbnail}/><span>{txName(category)}</span></Link>
           )}</div>
         </section>
         <section aria-labelledby="home-popular">
@@ -77,7 +81,7 @@ export function Home() {
         </section>
         <section className="house-package">
           <img src={artwork("package-hero")} alt={t("packageAlt")} loading="lazy"/>
-          <div><h2>{t("pujaPackages")}</h2><p>{t("packageBlurb")}</p><Button to="/packages">{t("explorePackages")}</Button></div>
+          <div><h2>{t("pujaKits")}</h2><p>{t("kitBlurb")}</p><Button to={pujaKitsPath}>{t("browseKits")}</Button></div>
         </section>
       </> : <LoadState query={home} kind="home"/>}
     </div>
@@ -86,17 +90,17 @@ export function Home() {
 
 export function Categories() {
   const listing = useApi("/collections");
-  const { t, tx } = useI18n();
+  const { t, txName } = useI18n();
   return <section className="page">
     <Title>{t("allCategories")}</Title>
     {listing.data ? <div className="category-grid">{listing.data.items.map(category =>
-      <Link to={categoryLink(category.slug)} key={category.slug} className="category-card"><img src={assetUrl(category.image)} alt="" loading="lazy"/><strong>{tx(category.name)} <Icon name="chevron" size={18}/></strong></Link>
+      <Link to={categoryLink(category.slug)} key={category.slug} className="category-card"><CatalogPhoto image={category.image} loading="lazy"/><strong>{txName(category)} <Icon name="chevron" size={18}/></strong></Link>
     )}</div> : <LoadState query={listing} kind="categories"/>}
   </section>;
 }
 
 function FilterDialog({ close, apply, params, collections, fixedCategory }) {
-  const { t, tx } = useI18n();
+  const { t, txName } = useI18n();
   const dialog = useRef(null);
   useEffect(() => { dialog.current.showModal(); }, []);
   function submit(event) {
@@ -116,9 +120,9 @@ function FilterDialog({ close, apply, params, collections, fixedCategory }) {
     <form onSubmit={submit}>
       <div className="sheet-handle"/>
       <div className="section-title"><h2 id="filter-title">{t("filterSort")}</h2><button type="button" className="icon-button" onClick={close} aria-label={t("closeFilters")}><Icon name="close"/></button></div>
-      {!fixedCategory && <fieldset><legend>{t("category")}</legend>{collections.filter(entry => entry.slug !== "packages").map(category =>
+      {!fixedCategory && <fieldset><legend>{t("category")}</legend>{collections.map(category =>
         <label className="check-line" key={category.slug}><input type="checkbox" name="category" value={category.slug}
-          defaultChecked={params.get("category")?.split(",").includes(category.slug)}/>{tx(category.name)}</label>
+          defaultChecked={params.get("category")?.split(",").includes(category.slug)}/>{txName(category)}</label>
       )}</fieldset>}
       <label className="check-line stock-filter">{t("inStockOnly")}<input name="inStock" type="checkbox" role="switch" defaultChecked={params.get("inStock") === "1"}/></label>
       <fieldset><legend>{t("priceRange")}</legend><div className="price-range">
@@ -132,7 +136,7 @@ function FilterDialog({ close, apply, params, collections, fixedCategory }) {
 }
 
 export function Shop() {
-  const { t, tx } = useI18n();
+  const { t, lang, txName } = useI18n();
   const { slug } = useParams();
   const [params, setParams] = useSearchParams();
   const [filter, setFilter] = useState(false);
@@ -148,7 +152,7 @@ export function Shop() {
   };
   if (slug && collections.data && !category) return <section className="page"><Empty title={t("categoryUnavailable")} to="/categories" action={t("browseCategories")}/></section>;
   return <section className="page shop-page">
-    <Title back={slug ? "/categories" : undefined}>{category ? tx(category.name) : t("pujaEssentials")}</Title>
+    <Title back={slug ? "/categories" : undefined} intro={lang === "bn" ? category?.bengaliDescription : category?.description}>{category ? txName(category) : t("pujaEssentials")}</Title>
     <div className="shop-controls">
       <button type="button" className="control-button" onClick={() => setFilter(true)}><Icon name="filter" size={19}/> {t("filter")}</button>
       <label className="sort-control"><span>{t("sortLabel")}</span><select aria-label={t("sortProducts")} value={params.get("sort") || ""} onChange={event => patchFilters({ sort: event.target.value })}>
@@ -156,10 +160,6 @@ export function Shop() {
       </select></label>
       {params.size > 0 && <button type="button" className="text-button" onClick={() => setParams({})}>{t("clearFilters")}</button>}
     </div>
-    {slug === "lamps" && <div className="chips">{tagKeys.map(([id, label]) =>
-      <button type="button" className="chip" aria-pressed={params.get("tag") === id} key={id}
-        onClick={() => patchFilters({ tag: params.get("tag") === id ? "" : id })}>{t(label)}</button>
-    )}</div>}
     {listing.data ? (listing.data.items.length ?
       <div className="product-grid">{listing.data.items.map(product => <ProductCard product={product} key={product.id}/>)}</div> :
       <Empty title={t("noFilterMatch")}><button className="text-button" type="button" onClick={() => setParams({})}>{t("clearFilters")}</button></Empty>
@@ -215,6 +215,10 @@ function EmptySearch({ q, commit }) {
 export function Product() {
   const { slug } = useParams();
   const product = useApi("/products/" + encodeURIComponent(slug));
+  const { t } = useI18n();
+  if (product.error?.status === 404) return <section className="page narrow">
+    <Empty title={t("unavailableItem")} to="/shop" action={t("heroCta")}/>
+  </section>;
   return <section className="page product-page">
     {product.data ? <ProductDetail key={slug} product={product.data}/> : <LoadState query={product} kind="product"/>}
   </section>;
@@ -222,48 +226,60 @@ export function Product() {
 
 function ProductDetail({ product }) {
   const { add, location } = useStore();
-  const { t, tx, lang } = useI18n();
+  const { t, tx, txName, lang } = useI18n();
   const [variantId, setVariant] = useState(product.variants[0].id);
   const [quantity, setQuantity] = useState(1);
-  const selected = product.variants.find(variant => variant.id === variantId);
-  const name = tx(product.name);
+  const selected = product.variants.find(variant => variant.id === variantId) || product.variants[0];
+  const name = txName(product);
+  const alternate = lang === "bn" ? product.name : product.bengali;
+  const details = lang === "bn" && product.bengaliDescription ? product.bengaliDescription : tx(product.description);
+  const priced = isPriced(selected.pricePaise);
   return <div className="product-detail">
-    <div className="detail-photo"><Photo src={assetUrl(product.image)} alt={name}/></div>
+    <div className="detail-photo"><CatalogPhoto image={product.image} alt={name}/></div>
     <div className="detail-info">
       <div className="detail-heading">
-        <div><h1>{name}</h1><strong>{money(selected.pricePaise)}</strong></div><Heart product={product}/>
+        <div>
+          <h1>{name}</h1>
+          {alternate && alternate !== name && <p className="alternate-name" lang={lang === "bn" ? "en" : "bn"}>{alternate}</p>}
+          <strong className={priced ? undefined : "pending-price"}>{priced ? money(selected.pricePaise) : t("pricePending")}</strong>
+        </div>
+        <Heart product={product}/>
       </div>
-      <div className="detail-attributes">
-        <label><span><Icon name="box"/> {t("packSize")}</span><select value={variantId} onChange={event => { setVariant(event.target.value); setQuantity(1); }}>
-          {product.variants.map(variant => <option key={variant.id} value={variant.id}>{tx(variant.packSize)}{variant.stock === 0 && " · " + t("soldOut")}</option>)}
-        </select></label>
-        <div><span><Icon name="layers"/> {t("material")}</span><span>{tx(product.material)}</span></div>
-      </div>
-      <div className="quantity-row"><span>{t("quantity")}</span><Stepper value={quantity} onChange={setQuantity} max={Math.min(10, selected.stock)}/></div>
-      <Button className="wide" icon="bag" disabled={!selected.stock} onClick={() => add(product, selected, quantity)}>{selected.stock ? t("addToBag") : t("soldOut")}</Button>
-      <Link className="inline-delivery" to={"/delivery?next=" + encodeURIComponent("/products/" + product.slug)}><Icon name="truck" size={20}/>{location ? t("deliveringTo", { place: tx(location.locality), pin: location.pin }) : t("checkAvailability")}</Link>
-      {product.description && <p className="product-description">{tx(product.description)}</p>}
-      {lang === "en" && product.bengali && <p className="bengali" lang="bn">{product.bengali}</p>}
+      {(product.variants.length > 1 || selected.packSize || product.material) && <div className="detail-attributes">
+        {product.variants.length > 1 ? <label><span><Icon name="box"/> {t("packSize")}</span><select value={selected.id} onChange={event => { setVariant(event.target.value); setQuantity(1); }}>
+          {product.variants.map(variant => <option key={variant.id} value={variant.id}>{tx(variant.packSize) || variant.id}{variant.stock === 0 && " · " + t("soldOut")}</option>)}
+        </select></label> : selected.packSize && <div><span><Icon name="box"/> {t("packSize")}</span><span>{tx(selected.packSize)}</span></div>}
+        {product.material && <div><span><Icon name="layers"/> {t("material")}</span><span>{tx(product.material)}</span></div>}
+      </div>}
+      {priced && <>
+        {selected.stock > 0 && <div className="quantity-row"><span>{t("quantity")}</span><Stepper value={quantity} onChange={setQuantity} max={Math.min(10, selected.stock)}/></div>}
+        <Button className="wide" icon="bag" disabled={!selected.stock} onClick={() => add(product, selected, quantity)}>{selected.stock ? t("addToBag") : t("soldOut")}</Button>
+        <Link className="inline-delivery" to={"/delivery?next=" + encodeURIComponent("/products/" + product.slug)}><Icon name="truck" size={20}/>{location ? t("deliveringTo", { place: tx(location.locality), pin: location.pin }) : t("checkAvailability")}</Link>
+      </>}
+      {details && <section className="product-details" aria-labelledby="product-details-title">
+        <h2 id="product-details-title">{t("productDetails")}</h2><p>{details}</p>
+      </section>}
     </div>
   </div>;
 }
 
 export function Wishlist() {
   const { saved, toggleSaved, add } = useStore();
-  const { t, tx } = useI18n();
+  const { t, tx, txName } = useI18n();
   const listing = useApi(saved.length ? "/products" : null);
   const products = listing.data?.items.filter(product => saved.includes(product.id)) || [];
   return <section className="page narrow">
-    <Title intro={t("itemCount", { count: numeral(saved.length) })}>{t("savedItems")}</Title>
-    {!saved.length ? <Empty title={t("nothingSaved")} to="/shop" action={t("heroCta")}>{t("saveHint")}</Empty> :
+    <Title intro={listing.data ? t("itemCount", { count: numeral(products.length) }) : undefined}>{t("savedItems")}</Title>
+    {(!saved.length || (listing.data && !products.length)) ? <Empty title={t("nothingSaved")} to="/shop" action={t("heroCta")}>{t("saveHint")}</Empty> :
       listing.data ? <div className="saved-list">{products.map(product => {
         const variant = product.variants[0];
-        const name = tx(product.name);
+        const name = txName(product);
+        const priced = isPriced(variant.pricePaise);
         return <article className="saved-row" key={product.id}>
-          <Link to={"/products/" + product.slug}><img src={assetUrl(product.image)} alt={name}/></Link>
+          <Link to={"/products/" + product.slug} aria-label={name}><CatalogPhoto image={product.image}/></Link>
           <div><h2><Link to={"/products/" + product.slug}>{name}</Link></h2>
-            {variant.packSize !== "1 pc" && <small>{tx(variant.packSize)}</small>}<strong>{money(variant.pricePaise)}</strong>
-            <Button secondary icon="bag" disabled={!variant.stock} onClick={() => { if (add(product, variant)) toggleSaved(product.id); }}>{variant.stock ? t("moveToBag") : t("soldOut")}</Button>
+            {variant.packSize && variant.packSize !== "1 pc" && <small>{tx(variant.packSize)}</small>}<strong>{priced ? money(variant.pricePaise) : t("pricePending")}</strong>
+            {priced && <Button secondary icon="bag" disabled={!variant.stock} onClick={() => { if (add(product, variant)) toggleSaved(product.id); }}>{variant.stock ? t("moveToBag") : t("soldOut")}</Button>}
           </div>
           <button type="button" className="icon-button remove-button" aria-label={t("removeNamed", { name })} onClick={() => toggleSaved(product.id)}><Icon name="close" size={19}/></button>
         </article>;
@@ -273,10 +289,10 @@ export function Wishlist() {
 
 export function Bag() {
   const { updateQuantity, location } = useStore();
-  const { t, tx } = useI18n();
+  const { t, tx, txName } = useI18n();
   const listing = useBagCatalog();
   const { lines, legacy } = listing;
-  const invalid = lines.some(line => !line.variant || line.quantity > line.variant.stock);
+  const invalid = lines.some(line => !isPriced(line.variant?.pricePaise) || line.quantity > line.variant.stock);
   const subtotalPaise = lines.reduce((sum, line) => sum + (line.variant?.pricePaise || 0) * line.quantity, 0);
   const deliveryPaise = subtotalPaise && subtotalPaise < 50000 ? 3000 : 0;
   const estimate = { subtotalPaise, deliveryPaise, totalPaise: subtotalPaise + deliveryPaise };
@@ -287,11 +303,11 @@ export function Bag() {
     {!lines.length ? <Empty title={legacy ? t("individualItems") : t("bagEmpty")} to="/shop" action={t("heroCta")}/> : !listing.data ? <LoadState query={listing} kind="list"/> :
       <div className="two-column bag-layout">
         <div className="bag-items">{lines.map(({ id, quantity, product, variant }) => {
-          const name = product ? tx(product.name) : t("item");
+          const name = product ? txName(product) : t("item");
           return <article className="bag-row" key={id}>
-            {product ? <Link to={"/products/" + product.slug}><img src={assetUrl(product.image)} alt={name}/></Link> : <span className="missing-photo"><Icon name="box"/></span>}
+            {product ? <Link to={"/products/" + product.slug} aria-label={name}><CatalogPhoto image={product.image}/></Link> : <span className="missing-photo"><Icon name="box"/></span>}
             <div><h2>{product ? <Link to={"/products/" + product.slug}>{name}</Link> : t("unavailableItem")}</h2>
-              {variant && <><small>{tx(variant.packSize)}</small><strong>{money(variant.pricePaise * quantity)}</strong></>}
+              {variant && <><small>{tx(variant.packSize)}</small><strong>{isPriced(variant.pricePaise) ? money(variant.pricePaise * quantity) : t("pricePending")}</strong></>}
               {(!variant || quantity > variant.stock) && <p className="form-error">{variant?.stock ? t("onlyAvailable", { count: numeral(variant.stock) }) : t("itemUnavailable")}</p>}
               {variant && <Stepper label={t("itemQuantity", { name })} value={quantity} onChange={value => updateQuantity(id, value)} max={Math.min(10, variant.stock)}/>}
             </div>

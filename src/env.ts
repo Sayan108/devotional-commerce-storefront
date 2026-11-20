@@ -1,5 +1,6 @@
 export const env = {
-  apiUrl: "https://devotional-commerce-backend.onrender.com"
+  apiUrl: (import.meta.env.VITE_API_URL ??
+    (import.meta.env.DEV ? "" : "https://devotional-commerce-backend.onrender.com")).replace(/\/+$/, "")
 } as const;
 
 export function assetUrl(path = "") {

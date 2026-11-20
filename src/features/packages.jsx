@@ -7,10 +7,14 @@ import { dateLabel, artwork, money, numeral } from "../shared/format";
 import { useI18n } from "../shared/i18n";
 import { useStore } from "../shared/store";
 import { AddressForm, addressText, DropSchedule } from "./checkout";
+import { pujaKitsPath } from "./catalog";
 
 export function Packages() {
   const plans = useApi("/plans");
   const { t, tx } = useI18n();
+  if (plans.data && !plans.data.items.length) return <section className="page narrow">
+    <Empty title={t("noPlansAvailable")} to={pujaKitsPath} action={t("browseKits")}/>
+  </section>;
   return <section className="page package-page">
     <img className="page-art package-art" src={artwork("package-hero")} alt={t("packageAltLong")}/>
     <div className="package-intro">
@@ -28,6 +32,9 @@ export function PackageDetail() {
   const { slug } = useParams();
   const { t, tx } = useI18n();
   const plan = useApi("/plans/" + encodeURIComponent(slug));
+  if (plan.error?.status === 404) return <section className="page narrow">
+    <Empty title={t("packageUnavailable")} to={pujaKitsPath} action={t("browseKits")}/>
+  </section>;
   if (!plan.data) return <section className="page"><LoadState query={plan} kind="product"/></section>;
   const data = plan.data;
   const cadence = tx(data.cadence);
@@ -61,7 +68,7 @@ export function MyPackages() {
     <Title back="/account">{t("myPackages")}</Title>
     {plans ? plans.length ? <div className="order-list">{plans.map(order => <Link className="action-row panel" to={"/orders/" + order.orderRef + "/package"} key={order.orderRef}>
       <Icon name="box" size={28}/><span><strong>{tx(order.lines[0].name)}</strong><small>{order.orderRef} · {t("deliveredOf", { done: numeral(order.drops.filter(drop => drop.state === "delivered").length), total: numeral(order.drops.length) })}</small></span><Icon name="chevron" size={18}/>
-    </Link>)}</div> : <Empty title={t("noPackages")} to="/packages" action={t("explorePackages")}/> : <LoadState query={orders} kind="list"/>}
+    </Link>)}</div> : <Empty title={t("noPackages")} to={pujaKitsPath} action={t("browseKits")}/> : <LoadState query={orders} kind="list"/>}
   </section>;
 }
 

@@ -1,7 +1,8 @@
-﻿import React, { createContext, useContext, useEffect, useRef, useState } from "react";
+import React, { createContext, useContext, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { request, useApi } from "./api";
 import { useI18n } from "./i18n";
+import { isPriced } from "./format";
 
 function useRemembered(key, fallback, restore = value => value ?? fallback) {
   const [value, setValue] = useState(() => {
@@ -30,7 +31,7 @@ const Store = createContext(null);
 export const useStore = () => useContext(Store);
 
 export function StoreProvider({ children }) {
-  const { t, tx } = useI18n();
+  const { t, tx, txName } = useI18n();
   const [bag, setBag] = useRemembered("arghya-bag", { items: [], pending: [], settled: [] }, readBag);
   const [guestSaved, setGuestSaved] = useRemembered("arghya-saved", [], value => Array.isArray(value) ? value.filter(id => typeof id === "string") : []);
   const [location, setLocation] = useRemembered("arghya-delivery-area", null);
@@ -69,6 +70,10 @@ export function StoreProvider({ children }) {
   }, [buyer?.account, buyer?.phone, wishlistVersion]);
 
   function add(product, variant, quantity = 1, showMessage = true) {
+    if (!isPriced(variant.pricePaise)) {
+      if (showMessage) announce(t("pricePending"));
+      return false;
+    }
     const limit = Math.min(variant.stock, 10);
     const existing = bag.items.find(line => line.id === variant.id);
     if ((existing?.quantity || 0) + quantity > limit) {
@@ -82,7 +87,7 @@ export function StoreProvider({ children }) {
       } : line) : [...previous.items, { id: variant.id, quantity }];
       return { ...previous, items };
     });
-    if (showMessage) announce(t("addedToBag", { name: tx(product.name) }), "/bag", t("viewBag"));
+    if (showMessage) announce(t("addedToBag", { name: txName(product) }), "/bag", t("viewBag"));
     return true;
   }
 

@@ -109,7 +109,7 @@ legend { font-weight:700; padding:0; margin-bottom:5px; }
 .site-header { position:relative; z-index:5; background:var(--paper); border-bottom:1px solid var(--line); }
 .header-inner { width:min(100%,var(--page-width)); min-height:79px; padding:0 var(--gutter); margin:auto; display:flex; align-items:center; justify-content:space-between; gap:22px; }
 .wordmark { display:inline-flex; align-items:center; gap:.4em; font:700 clamp(22px, 16.86px + 1.607vw, 40px)/1 var(--display); letter-spacing:-.03em; color:#10291d; white-space:nowrap; }
-.wordmark img { width:1.55em; height:1.55em; }
+.wordmark img { flex:none; width:38px; height:auto; margin:5px; }
 .wordmark.bn { font-family:var(--bn); letter-spacing:0; }
 .lang-toggle { display:inline-flex; border:1px solid var(--line); border-radius:999px; overflow:hidden; }
 .lang-toggle button { border:0; background:transparent; min-height:32px; padding:0 9px; font:700 var(--text-xs)/1 var(--body); }
@@ -127,7 +127,8 @@ html[lang="bn"] h1, html[lang="bn"] h2, html[lang="bn"] h3, html[lang="bn"] .wor
 .menu-panel { position:absolute; inset:100% 0 auto; padding:6px var(--gutter) 14px; background:var(--paper); border-bottom:1px solid var(--line); box-shadow:0 15px 23px #23150524; }
 .menu-panel > a { display:flex; justify-content:space-between; align-items:center; min-height:44px; border-bottom:1px solid var(--line); font-weight:700; }
 .footer { width:min(100%,var(--page-width)); margin:auto; padding:22px var(--gutter); border-top:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; gap:14px; }
-.footer .wordmark { font-size:clamp(20px, 16.29px + 1.161vw, 33px); }
+.footer-signature { flex:none; padding:19px; }
+.footer-signature img { display:block; width:152px; height:auto; }
 .footer nav { display:flex; gap:21px; flex-wrap:wrap; font-size:var(--text-sm); color:var(--leaf); }
 
 @media (max-width:1020px) { .desktop-nav { gap:17px; } }
@@ -163,4 +164,7 @@ html[lang="bn"] h1, html[lang="bn"] h2, html[lang="bn"] h3, html[lang="bn"] .wor
   :root { --gutter:13px; }
   .header-inner { gap:4px; }
   .header-actions .icon-button { width:36px; }
+}
+@media (max-width:350px) {
+  .header-actions .header-search { display:none; }
 }

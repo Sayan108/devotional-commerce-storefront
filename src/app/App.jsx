@@ -1,6 +1,6 @@
-﻿import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, NavLink, Navigate, Route, Routes, useLocation, useParams } from "react-router-dom";
-import { Bag, Categories, Delivery, Home, Product, Search, Shop, Wishlist } from "../features/catalog";
+import { Bag, Categories, Delivery, Home, Product, Search, Shop, Wishlist, pujaKitsPath } from "../features/catalog";
 import { CheckoutAddress, CheckoutReview, Login, Verify } from "../features/checkout";
 import { Confirmation, OrderDetail, Orders, Payment, PaymentPending, Tracking } from "../features/orders";
 import { ManagePackage, MyPackages, PackageDetail, Packages } from "../features/packages";
@@ -10,13 +10,18 @@ import { useStore } from "../shared/store";
 import { useI18n } from "../shared/i18n";
 import { numeral } from "../shared/format";
 
-const mainLinks = [["/shop", "shop"], ["/categories", "categories"], ["/packages", "packages"], ["/orders", "trackOrder"]];
+const mainLinks = [["/shop", "shop"], ["/categories", "categories"], [pujaKitsPath, "pujaKits"], ["/orders", "trackOrder"]];
 const mobileLinks = [["/", "home", "home"], ["/categories", "categories", "grid"], ["/search", "search", "search"], ["/orders", "orders", "box"], ["/account", "account", "user"]];
 
-function Wordmark() {
+function Wordmark({ signature = false }) {
   const { lang, t } = useI18n();
+  if (signature) return <Link className="footer-signature" to="/" aria-label={t("homeAria")}>
+    <img src="/brand-signature.png" width="600" height="534" alt="" loading="lazy"/>
+  </Link>;
   const bengali = lang === "bn";
-  return <Link className={"wordmark" + (bengali ? " bn" : "")} to="/" lang={lang} aria-label={t("homeAria")}><img src="/logo.svg" alt=""/>{bengali ? "নৈবেদ্য" : "Naivedya"}</Link>;
+  return <Link className={"wordmark" + (bengali ? " bn" : "")} to="/" lang={lang} aria-label={t("homeAria")}>
+    <img src="/brand-emblem.png" width="640" height="494" alt=""/>{bengali ? "নৈবেদ্য" : "Naivedya"}
+  </Link>;
 }
 
 function LanguageSwitch() {
@@ -55,7 +60,7 @@ function Header() {
       <nav className="desktop-nav" aria-label={t("mainNav")}>{mainLinks.map(([to, label]) => <NavLink key={to} to={to}>{t(label)}</NavLink>)}</nav>
       <div className="header-actions">
         <LanguageSwitch/>
-        <Link className="icon-button" to="/search" aria-label={t("search")}><Icon name="search" size={24}/></Link>
+        <Link className="icon-button header-search" to="/search" aria-label={t("search")}><Icon name="search" size={24}/></Link>
         <Link className="icon-button" to="/wishlist" aria-label={t("savedItems")}><Icon name="heart" size={24}/></Link>
         <Link className="icon-button header-account" to="/account" aria-label={t("account")}><Icon name="user" size={23}/></Link>
         <Link className="icon-button bag-link" to="/bag" aria-label={t("bagCount", { count: numeral(items) })}><Icon name="cart" size={24}/>{items > 0 && <span>{items > 99 ? "99+" : numeral(items)}</span>}</Link>
@@ -78,7 +83,7 @@ function MobileNav() {
 
 function Footer() {
   const { t } = useI18n();
-  return <footer className="footer"><Wordmark/>
+  return <footer className="footer"><Wordmark signature/>
     <nav aria-label={t("storeInfo")}>
       <Link to="/delivery">{t("checkDelivery")}</Link><Link to="/help/shipping">{t("shipping")}</Link>
       <Link to="/help/cancellation">{t("cancellation")}</Link><Link to="/help/tracking">{t("orderSupport")}</Link>
@@ -122,7 +127,7 @@ export function App() {
         <Route path="/" element={<Home/>}/>
         <Route path="/shop" element={<Shop/>}/>
         <Route path="/categories" element={<Categories/>}/>
-        <Route path="/collections/packages" element={<Navigate to="/packages" replace/>}/>
+        <Route path="/collections/packages" element={<Navigate to={pujaKitsPath} replace/>}/>
         <Route path="/collections/:slug" element={<Shop/>}/>
         <Route path="/search" element={<Search/>}/>
         <Route path="/products/:slug" element={<Product/>}/>

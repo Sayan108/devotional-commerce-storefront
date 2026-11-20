@@ -136,10 +136,10 @@ export function Notice({ icon = "info", children, tone = "green" }) {
 }
 
 export function ImageLine({ line, children }) {
-  const { t, tx } = useI18n();
+  const { t, tx, txName } = useI18n();
   return <div className="image-line">
-    {line.image && <img src={assetUrl(line.image)} alt=""/>}
-    <div><strong>{tx(line.name)}</strong><small>{t("qty", { count: numeral(line.quantity) })}{line.unit && " · " + tx(line.unit)}</small>{children}</div>
+    {line.image ? <img src={assetUrl(line.image)} alt=""/> : <span className="catalog-placeholder" aria-hidden="true"><Icon name="lotus"/></span>}
+    <div><strong>{txName(line)}</strong><small>{t("qty", { count: numeral(line.quantity) })}{line.unit && " · " + tx(line.unit)}</small>{children}</div>
     <b>{money(line.pricePaise * line.quantity)}</b>
   </div>;
 }

@@ -19,4 +19,5 @@ export const dateLabel = value => active.dates.format(new Date(value));
 export const timeLabel = value => active.times.format(new Date(value)) + " IST";
 export const numeral = value => active.count.format(value);
 export const artwork = name => "/artwork/" + name + ".jpg";
+export const isPriced = value => Number.isSafeInteger(value) && value >= 0;
 export const plural = (count, word = "item") => count + " " + word + (count === 1 ? "" : "s");
