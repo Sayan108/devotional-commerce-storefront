@@ -1,6 +1,7 @@
 ﻿import React, { createContext, useContext, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { request, useApi } from "./api";
+import { useI18n } from "./i18n";
 
 function useRemembered(key, fallback, restore = value => value ?? fallback) {
   const [value, setValue] = useState(() => {
@@ -29,6 +30,7 @@ const Store = createContext(null);
 export const useStore = () => useContext(Store);
 
 export function StoreProvider({ children }) {
+  const { t, tx } = useI18n();
   const [bag, setBag] = useRemembered("arghya-bag", { items: [], pending: [], settled: [] }, readBag);
   const [guestSaved, setGuestSaved] = useRemembered("arghya-saved", [], value => Array.isArray(value) ? value.filter(id => typeof id === "string") : []);
   const [location, setLocation] = useRemembered("arghya-delivery-area", null);
@@ -70,7 +72,7 @@ export function StoreProvider({ children }) {
     const limit = Math.min(variant.stock, 10);
     const existing = bag.items.find(line => line.id === variant.id);
     if ((existing?.quantity || 0) + quantity > limit) {
-      announce(limit ? "Your bag already has the available quantity." : "This item is sold out.", "/bag", "View bag");
+      announce(limit ? t("bagAtLimit") : t("soldOutNotice"), "/bag", t("viewBag"));
       return false;
     }
     setBag(previous => {
@@ -80,7 +82,7 @@ export function StoreProvider({ children }) {
       } : line) : [...previous.items, { id: variant.id, quantity }];
       return { ...previous, items };
     });
-    if (showMessage) announce(product.name + " added to bag.", "/bag", "View bag");
+    if (showMessage) announce(t("addedToBag", { name: tx(product.name) }), "/bag", t("viewBag"));
     return true;
   }
 
@@ -124,7 +126,7 @@ export function StoreProvider({ children }) {
     if (wishlistAction.current) return;
     if (wishlist?.phone !== buyer.phone) {
       refreshWishlist(version => version + 1);
-      announce("Loading your saved items.");
+      announce(t("loadingSaved"));
       return;
     }
     wishlistAction.current = true;
@@ -145,7 +147,7 @@ export function StoreProvider({ children }) {
     setIdentity, announce
   }}>
     {children}
-    {notice && <div className="toast" role="status"><span>{notice.message}</span>{notice.to && <Link to={notice.to}>{notice.label}</Link>}</div>}
+    {notice && <div className="toast" role="status"><span>{tx(notice.message)}</span>{notice.to && <Link to={notice.to}>{tx(notice.label)}</Link>}</div>}
   </Store.Provider>;
 }
 

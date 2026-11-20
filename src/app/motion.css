@@ -1,0 +1,96 @@
+@media (prefers-reduced-motion: no-preference) {
+  .page-enter { animation: page-enter .55s cubic-bezier(.16, 1, .3, 1) both; }
+  .wordmark span { animation: wordmark-glow 2.8s ease-out both; }
+
+  .home-hero img { transform-origin: 58% 64%; animation: hero-drift 26s ease-in-out infinite alternate; }
+  .home-hero-copy h1 { animation: hero-rise .9s cubic-bezier(.16, 1, .3, 1) both; }
+  .home-hero-copy .button { animation: hero-rise .9s .16s cubic-bezier(.16, 1, .3, 1) both; }
+
+  .light-shaft { animation: shaft 8.5s ease-in-out infinite alternate; }
+  .lamp-glow { animation: lamp 3.2s ease-in-out infinite; }
+  .ember { animation: ember 4.6s ease-in infinite; }
+  .ember.b { animation-delay: .6s; animation-duration: 5.2s; }
+  .ember.c { animation-delay: 1.3s; animation-duration: 4.1s; }
+  .ember.d { animation-delay: 2s; animation-duration: 5.6s; }
+  .ember.e { animation-delay: 2.6s; animation-duration: 3.8s; }
+  .ember.f { animation-delay: 1.8s; animation-duration: 4.8s; }
+
+  .home-sections > section { animation: rise .7s cubic-bezier(.16, 1, .3, 1) both; }
+  .home-sections > section:nth-child(2) { animation-delay: .08s; }
+  .home-sections > section:nth-child(3) { animation-delay: .16s; }
+  .category-tiles > a, .popular-grid > .product-card, .category-grid > .category-card {
+    animation: rise .65s cubic-bezier(.16, 1, .3, 1) both;
+  }
+  .category-tiles > a:nth-child(2), .popular-grid > .product-card:nth-child(2), .category-grid > .category-card:nth-child(2) { animation-delay: .06s; }
+  .category-tiles > a:nth-child(3), .popular-grid > .product-card:nth-child(3), .category-grid > .category-card:nth-child(3) { animation-delay: .12s; }
+  .category-tiles > a:nth-child(4), .popular-grid > .product-card:nth-child(4), .category-grid > .category-card:nth-child(4) { animation-delay: .18s; }
+  .category-tiles > a:nth-child(5) { animation-delay: .24s; }
+
+  .product-photo, .category-card, .category-tiles > a, .house-package, .page-art { overflow: hidden; }
+  .product-photo img, .category-card img, .category-tiles img, .house-package img, .page-art {
+    transition: transform .7s cubic-bezier(.16, 1, .3, 1);
+  }
+  .product-card:hover .product-photo img,
+  .category-card:hover img,
+  .category-tiles > a:hover img,
+  .house-package:hover img,
+  .page-art:hover { transform: scale(1.06); }
+}
+
+.hero-motion { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.home-hero-copy { position: relative; z-index: 1; }
+.light-shaft {
+  position: absolute; left: -12%; top: -30%; width: 46%; height: 160%;
+  background: linear-gradient(108deg, transparent 20%, #fff1cc55 46%, transparent 68%);
+  filter: blur(10px); mix-blend-mode: soft-light; opacity: .55;
+}
+.lamp-glow {
+  position: absolute; left: 42%; top: 28%; width: 46%; height: 70%; border-radius: 50%;
+  background: radial-gradient(circle, #ffe7a866 0%, #ff9a3c33 36%, transparent 70%);
+  filter: blur(8px); mix-blend-mode: screen;
+}
+.ember {
+  position: absolute; width: 5px; height: 5px; border-radius: 50%;
+  background: #ffe7a2; box-shadow: 0 0 10px #ffb347; opacity: 0;
+}
+.ember.c, .ember.e { width: 3px; height: 3px; }
+
+@keyframes page-enter {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes wordmark-glow {
+  0% { text-shadow: 0 0 0 transparent; }
+  35% { text-shadow: 0 0 18px #940f1870; }
+  100% { text-shadow: none; }
+}
+@keyframes hero-drift {
+  from { transform: scale(1.08) translate3d(0, 1%, 0); }
+  to { transform: scale(1) translate3d(-1.4%, -1%, 0); }
+}
+@keyframes hero-rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes rise {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes shaft {
+  from { transform: translateX(-8%) rotate(7deg); opacity: .28; }
+  to { transform: translateX(12%) rotate(13deg); opacity: .75; }
+}
+@keyframes lamp {
+  0%, 100% { opacity: .55; transform: scale(.92); }
+  50% { opacity: 1; transform: scale(1.08); }
+}
+@keyframes ember {
+  0% { transform: translate3d(0, 12px, 0) scale(.6); opacity: 0; }
+  18% { opacity: .9; }
+  100% { transform: translate3d(18px, -120px, 0) scale(.2); opacity: 0; }
+}
+
+@media (max-width: 759px) {
+  .lamp-glow { left: 46%; top: 18%; width: 52%; }
+  .light-shaft { left: 20%; width: 80%; }
+}

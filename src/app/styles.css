@@ -1,6 +1,7 @@
 @import "./tokens.css";
 @import "./catalog.css";
 @import "./checkout.css";
+@import "./motion.css";
 
 :root {
   --paper:#faf5eb; --ink:#202019; --green:#173e2e; --red:#940f18; --line:#dfd5c6; --leaf:#5b5c51;
@@ -67,6 +68,12 @@ legend { font-weight:700; padding:0; margin-bottom:5px; }
 .site-header { position:relative; z-index:5; background:var(--paper); border-bottom:1px solid var(--line); }
 .header-inner { width:min(100%,var(--page-width)); min-height:79px; padding:0 var(--gutter); margin:auto; display:flex; align-items:center; justify-content:space-between; gap:22px; }
 .wordmark { display:inline-flex; align-items:baseline; gap:5px; font:700 2rem/1.05 var(--display); color:#10291d; white-space:nowrap; }
+.wordmark.bn { font-family:var(--bn); font-size:1.75rem; }
+.lang-toggle { display:inline-flex; border:1px solid var(--line); border-radius:999px; overflow:hidden; }
+.lang-toggle button { border:0; background:transparent; min-height:32px; padding:0 8px; font:700 .72rem/1 var(--body); }
+.lang-toggle button[aria-pressed="true"] { background:var(--green); color:#fffdf7; }
+html[lang="bn"] body, html[lang="bn"] button, html[lang="bn"] input, html[lang="bn"] select, html[lang="bn"] textarea { font-family:var(--bn), var(--body); }
+html[lang="bn"] h1, html[lang="bn"] h2, html[lang="bn"] h3, html[lang="bn"] .wordmark, html[lang="bn"] .button { font-family:var(--bn), var(--display); }
 .wordmark i { font-style:normal; font-weight:600; }
 .wordmark span { font:700 .76em/1.4 var(--bn); color:var(--red); }
 .wordmark:hover { text-decoration:none; }

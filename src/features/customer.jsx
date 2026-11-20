@@ -2,7 +2,8 @@
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { Button, Empty, ErrorMessage, Icon, LoadState, Notice, Title } from "../shared/ui";
 import { request, useAction, useApi } from "../shared/api";
-import { dateLabel, money, plural } from "../shared/format";
+import { dateLabel, money, numeral } from "../shared/format";
+import { useI18n } from "../shared/i18n";
 import { useStore } from "../shared/store";
 import { AddressForm, addressText } from "./checkout";
 import { Timeline } from "./orders";
@@ -16,6 +17,7 @@ function AccountLink({ icon, to, children }) {
 }
 
 export function Account() {
+  const { t } = useI18n();
   const { buyer, setIdentity } = useStore();
   const action = useAction();
   function signOut() {
@@ -25,27 +27,28 @@ export function Account() {
     });
   }
   return <section className="page narrow account-page">
-    <AccountBanner title="My Account"/>
+    <AccountBanner title={t("myAccountTitle")}/>
     {buyer?.verified ? <>
-      <div className="account-person"><span className="avatar"><Icon name="user" size={31}/></span><div><h2>{buyer.name || (buyer.account ? "My profile" : "Guest checkout")}</h2><p>+91 {buyer.phone}</p></div></div>
+      <div className="account-person"><span className="avatar"><Icon name="user" size={31}/></span><div><h2>{buyer.name || (buyer.account ? t("myProfile") : t("guestCheckout"))}</h2><p>+91 {buyer.phone}</p></div></div>
       <div className="account-links">
-        <AccountLink icon="box" to="/orders">My Orders</AccountLink>
-        <AccountLink icon="pin" to="/account/addresses">Saved Addresses</AccountLink>
-        <AccountLink icon="calendar" to="/account/packages">My Packages</AccountLink>
-        <AccountLink icon="headset" to="/returns">Support (Help &amp; Returns)</AccountLink>
-        {!buyer.account && <AccountLink icon="user" to="/login">Sign in to your account</AccountLink>}
-        <button className="action-row action-button sign-out" type="button" disabled={action.busy} onClick={signOut}><Icon name="logout"/><span>Sign Out</span><Icon name="chevron" size={18}/></button>
+        <AccountLink icon="box" to="/orders">{t("myOrders")}</AccountLink>
+        <AccountLink icon="pin" to="/account/addresses">{t("savedAddresses")}</AccountLink>
+        <AccountLink icon="calendar" to="/account/packages">{t("myPackages")}</AccountLink>
+        <AccountLink icon="headset" to="/returns">{t("supportReturns")}</AccountLink>
+        {!buyer.account && <AccountLink icon="user" to="/login">{t("signInAccount")}</AccountLink>}
+        <button className="action-row action-button sign-out" type="button" disabled={action.busy} onClick={signOut}><Icon name="logout"/><span>{t("signOut")}</span><Icon name="chevron" size={18}/></button>
       </div>
       <ErrorMessage error={action.error}/>
     </> : <div className="account-links">
-      <AccountLink icon="user" to="/login">Sign in with your mobile number</AccountLink>
-      <AccountLink icon="box" to="/orders">My Orders</AccountLink>
-      <AccountLink icon="headset" to="/help/tracking">Help &amp; Returns</AccountLink>
+      <AccountLink icon="user" to="/login">{t("signInMobile")}</AccountLink>
+      <AccountLink icon="box" to="/orders">{t("myOrders")}</AccountLink>
+      <AccountLink icon="headset" to="/help/tracking">{t("helpAndReturns")}</AccountLink>
     </div>}
   </section>;
 }
 
 export function Addresses() {
+  const { t, tx } = useI18n();
   const addresses = useApi("/addresses");
   const { buyer, location, announce } = useStore();
   const [editing, setEditing] = useState(null);
@@ -61,7 +64,7 @@ export function Addresses() {
       });
       addresses.reload();
       setEditing(null);
-      announce("Address saved.");
+      announce(t("addressSaved"));
     });
   }
   function remove(id) {
@@ -69,34 +72,34 @@ export function Addresses() {
       await request("/addresses/" + id, { method: "DELETE" });
       addresses.reload();
       setEditing(null);
-      announce("Address removed.");
+      announce(t("addressRemoved"));
     });
   }
   const initial = { phone: buyer.phone, name: buyer.name, pin: location?.pin, locality: location?.locality };
   return <section className="page narrow order-page">
-    <AccountBanner title="Saved Addresses" intro="Manage your delivery addresses." back="/account"/>
+    <AccountBanner title={t("savedAddresses")} intro={t("addressIntro")} back="/account"/>
     {editing ? <div className="panel address-panel">
-      <h2>{editing.id ? "Edit address" : "Add address"}</h2>
-      <AddressForm initial={editing} action={action} onSubmit={save} editLabel submitLabel="Save address">
-        <Button className="wide" secondary onClick={() => edit(null)}>Cancel</Button>
-        {editing.id && <button type="button" className="text-button danger" disabled={action.busy} onClick={() => remove(editing.id)}>Remove this address</button>}
+      <h2>{editing.id ? t("editAddress") : t("addAddressTitle")}</h2>
+      <AddressForm initial={editing} action={action} onSubmit={save} editLabel submitLabel={t("saveAddressBtn")}>
+        <Button className="wide" secondary onClick={() => edit(null)}>{t("cancel")}</Button>
+        {editing.id && <button type="button" className="text-button danger" disabled={action.busy} onClick={() => remove(editing.id)}>{t("removeAddress")}</button>}
       </AddressForm>
     </div> : addresses.data ? <>
       {addresses.data.items.length ? <div className="address-list">{addresses.data.items.map(address =>
         <article className="panel address-panel" key={address.id}>
-          <div className="action-row"><Icon name={address.label.toLowerCase() === "home" ? "home" : "pin"}/><h2>{address.label}</h2>{address.isDefault && <span className="badge">Default</span>}</div>
-          <p><strong>{address.name}</strong><br/>{addressText(address)}<br/>+91 {address.phone}</p>
-          <button className="text-button" type="button" onClick={() => edit(address)}><Icon name="edit" size={17}/> Edit <span className="sr-only">{address.label}</span></button>
+          <div className="action-row"><Icon name={address.label.toLowerCase() === "home" ? "home" : "pin"}/><h2>{tx(address.label)}</h2>{address.isDefault && <span className="badge">{t("defaultBadge")}</span>}</div>
+          <p><strong>{address.name}</strong><br/>{addressText(address, t("kolkata"))}<br/>+91 {address.phone}</p>
+          <button className="text-button" type="button" onClick={() => edit(address)}><Icon name="edit" size={17}/> {t("edit")} <span className="sr-only">{tx(address.label)}</span></button>
         </article>
-      )}</div> : <Empty title="No saved addresses"/>}
-      <Button className="wide" icon="plus" onClick={() => edit(initial)}>Add Address</Button>
+      )}</div> : <Empty title={t("noAddresses")}/>}
+      <Button className="wide" icon="plus" onClick={() => edit(initial)}>{t("addAddress")}</Button>
     </> : <LoadState query={addresses}/>}
   </section>;
 }
 
 const reasons = [
-  ["damaged", "Received a damaged item"], ["wrong", "Received a wrong item"],
-  ["missing", "Item is missing from the package"], ["other", "Other"]
+  ["damaged", "reasonDamaged"], ["wrong", "reasonWrong"],
+  ["missing", "reasonMissing"], ["other", "reasonOther"]
 ];
 
 function fileData(file) {
@@ -126,6 +129,7 @@ async function readPhoto(file) {
 }
 
 export function Returns() {
+  const { t } = useI18n();
   const [params] = useSearchParams();
   const navigate = useNavigate();
   const orders = useApi("/orders");
@@ -143,11 +147,11 @@ export function Returns() {
     event.currentTarget.value = "";
     if (!files.length) return;
     setPhotoError("");
-    if (files.length + photos.length > 5) { setPhotoError("Add up to five photos."); return; }
+    if (files.length + photos.length > 5) { setPhotoError(t("photoLimit")); return; }
     setProcessing(true);
     try {
       const added = await Promise.all(files.map(readPhoto));
-      if (added.some(photo => photo.length > 1_100_000)) throw new Error("Choose a smaller photo.");
+      if (added.some(photo => photo.length > 1_100_000)) throw new Error(t("photoSmaller"));
       setPhotos(previous => [...previous, ...added]);
     } catch (error) {
       setPhotoError(error.message);
@@ -157,8 +161,8 @@ export function Returns() {
   }
   function submit(event) {
     event.preventDefault();
-    if (!selection) { action.setError(new Error("Select a paid order.")); return; }
-    if (reason === "damaged" && !photos.length) { setPhotoError("Add a photo of the damaged item."); return; }
+    if (!selection) { action.setError(new Error(t("selectPaid"))); return; }
+    if (reason === "damaged" && !photos.length) { setPhotoError(t("damagedPhoto")); return; }
     const form = new FormData(event.currentTarget);
     action.run(async () => {
       const result = await request("/returns", { method: "POST", body: { orderRef: ref, reason, photos, detail: form.get("detail") } });
@@ -167,66 +171,67 @@ export function Returns() {
   }
 
   return <section className="page narrow order-page">
-    <AccountBanner title="Help & Returns" intro="Get help with your order or request a return." back="/account"/>
-    {!options ? <LoadState query={orders}/> : !options.length ? <Empty title="No paid orders" to="/orders" action="My orders">Choose a paid order to request a return.</Empty> :
+    <AccountBanner title={t("helpAndReturns")} intro={t("returnsIntro")} back="/account"/>
+    {!options ? <LoadState query={orders}/> : !options.length ? <Empty title={t("noPaid")} to="/orders" action={t("myOrders")}>{t("choosePaidHint")}</Empty> :
       <form className="stack" onSubmit={submit}>
-        <label>Select Order
+        <label>{t("selectOrder")}
           <select value={selection?.orderRef || ""} required onChange={event => { setRef(event.target.value); action.setError(null); }}>
-            <option value="">Choose a paid order</option>
+            <option value="">{t("choosePaid")}</option>
             {options.map(order => <option key={order.orderRef} value={order.orderRef}>{order.orderRef} · {money(order.totalPaise)} · {dateLabel(order.placedAt)}</option>)}
           </select>
         </label>
-        {selection?.returnRef ? <Button className="wide" to={"/refunds/" + selection.returnRef}>View refund status</Button> : <>
-          <fieldset><legend>Reason for Return</legend>
+        {selection?.returnRef ? <Button className="wide" to={"/refunds/" + selection.returnRef}>{t("viewRefund")}</Button> : <>
+          <fieldset><legend>{t("reasonLegend")}</legend>
             {reasons.map(([value, label]) => <label key={value} className="check-line"><input required type="radio" name="reason" value={value}
-              checked={reason === value} onChange={() => { setReason(value); setPhotoError(""); }}/>{label}</label>)}
+              checked={reason === value} onChange={() => { setReason(value); setPhotoError(""); }}/>{t(label)}</label>)}
           </fieldset>
-          <label>Extra details <textarea name="detail" rows={2} maxLength={500} placeholder="Optional"/></label>
-          <fieldset><legend>Upload Photos <small>(max 5)</small></legend>
+          <label>{t("extraDetails")} <textarea name="detail" rows={2} maxLength={500} placeholder={t("optional")}/></label>
+          <fieldset><legend>{t("uploadPhotos")} <small>{t("maxPhotos")}</small></legend>
             <div className="photo-grid">
-              {photos.map((photo, index) => <div key={index} className="photo-preview"><img src={photo} alt={"Return photo " + (index + 1)}/>
-                <button type="button" className="icon-button" aria-label={"Remove photo " + (index + 1)} onClick={() => setPhotos(previous => previous.filter((_, position) => position !== index))}><Icon name="close" size={15}/></button>
+              {photos.map((photo, index) => <div key={index} className="photo-preview"><img src={photo} alt={t("returnPhoto", { index: numeral(index + 1) })}/>
+                <button type="button" className="icon-button" aria-label={t("removePhoto", { index: numeral(index + 1) })} onClick={() => setPhotos(previous => previous.filter((_, position) => position !== index))}><Icon name="close" size={15}/></button>
               </div>)}
-              {photos.length < 5 && <button className="camera-box" type="button" disabled={processing} onClick={() => files.current?.click()}><Icon name="camera"/>{processing ? "Reading…" : "Add Photo"}</button>}
+              {photos.length < 5 && <button className="camera-box" type="button" disabled={processing} onClick={() => files.current?.click()}><Icon name="camera"/>{processing ? t("reading") : t("addPhoto")}</button>}
             </div>
             <input ref={files} type="file" accept="image/jpeg,image/png,image/webp" multiple hidden onChange={upload}/>
             <ErrorMessage error={photoError}/>
           </fieldset>
-          <div className="stack refund-method"><strong>Refund Method</strong><div className="panel">Original Payment Method</div></div>
+          <div className="stack refund-method"><strong>{t("refundMethod")}</strong><div className="panel">{t("originalMethod")}</div></div>
           <ErrorMessage error={action.error}/>
-          <Button className="wide" type="submit" disabled={action.busy || processing}>{action.busy ? "Submitting…" : "Submit Request"}</Button>
+          <Button className="wide" type="submit" disabled={action.busy || processing}>{action.busy ? t("submitting") : t("submitRequest")}</Button>
         </>}
       </form>}
   </section>;
 }
 
 const refundLabels = {
-  requested: ["Request received", "Your return request is awaiting review."],
-  under_review: ["Under review", "The merchant is reviewing your request."],
-  initiated: ["Refund initiated", "Your refund has been initiated to your original payment method."],
-  processed: ["Refund processed", "Your refund has been marked as processed."]
+  requested: ["requestReceived", "requestReceivedCopy"],
+  under_review: ["underReview", "underReviewCopy"],
+  initiated: ["refundInitiated", "refundInitiatedCopy"],
+  processed: ["refundProcessed", "refundProcessedCopy"]
 };
 
 export function Refund() {
+  const { t, tx } = useI18n();
   const { ref } = useParams();
   const refund = useApi("/returns/" + encodeURIComponent(ref));
   const data = refund.data;
   if (!data) return <section className="page narrow"><LoadState query={refund}/></section>;
   const [title, description] = refundLabels[data.status];
   return <section className="page narrow order-page refund-page">
-    <AccountBanner title="Refund Status" intro="Track the status of your refund request." back={"/orders/" + data.orderRef}/>
-    <Notice icon={data.status === "requested" ? "info" : "check"}><strong>{title}</strong><span>{description}</span></Notice>
+    <AccountBanner title={t("refundStatus")} intro={t("refundIntro")} back={"/orders/" + data.orderRef}/>
+    <Notice icon={data.status === "requested" ? "info" : "check"}><strong>{t(title)}</strong><span>{t(description)}</span></Notice>
     <div className="panel refund-summary">
-      <h2>Request Details</h2>
+      <h2>{t("requestDetails")}</h2>
       <dl className="totals">
-        <div><dt>Request ID</dt><dd>{data.requestRef}</dd></div>
-        <div><dt>Order</dt><dd>{data.orderRef}</dd></div>
-        <div><dt>Refund amount</dt><dd>{data.refundAmountPaise == null ? "Pending review" : money(data.refundAmountPaise)}</dd></div>
-        <div><dt>Refund method</dt><dd>{data.refundMethod}</dd></div>
-        {data.photoCount > 0 && <div><dt>Evidence</dt><dd>{plural(data.photoCount, "photo")}</dd></div>}
+        <div><dt>{t("requestId")}</dt><dd>{data.requestRef}</dd></div>
+        <div><dt>{t("order")}</dt><dd>{data.orderRef}</dd></div>
+        <div><dt>{t("refundAmount")}</dt><dd>{data.refundAmountPaise == null ? t("pendingReview") : money(data.refundAmountPaise)}</dd></div>
+        <div><dt>{t("refundMethodLabel")}</dt><dd>{tx(data.refundMethod)}</dd></div>
+        {data.photoCount > 0 && <div><dt>{t("evidence")}</dt><dd>{t("photoCount", { count: numeral(data.photoCount) })}</dd></div>}
       </dl>
     </div>
-    <section className="order-section"><h2>Request Timeline</h2><Timeline entries={data.timeline}/></section>
-    <Button secondary className="wide" icon="refresh" onClick={refund.reload}>Refresh status</Button>
+    <section className="order-section"><h2>{t("requestTimeline")}</h2><Timeline entries={data.timeline}/></section>
+    <Button secondary className="wide" icon="refresh" onClick={refund.reload}>{t("refreshStatus")}</Button>
   </section>;
 }

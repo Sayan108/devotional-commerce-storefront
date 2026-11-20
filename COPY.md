@@ -1,0 +1,539 @@
+# Naivedya copy
+
+The customer website is **Naivedya** (নৈবেদ্য). Every line below is the English and Bengali copy used on the storefront. The language switch in the header chooses one language for the whole site.
+
+## Brand
+
+| | English | Bengali |
+| --- | --- | --- |
+| Name | Naivedya | নৈবেদ্য |
+
+## Interface
+
+| Key | English | Bengali |
+| --- | --- | --- |
+| `language` | Language | ভাষা |
+| `homeAria` | Naivedya home | নৈবেদ্যর হোম |
+| `shop` | Shop | দোকান |
+| `categories` | Categories | বিভাগ |
+| `packages` | Packages | প্যাকেজ |
+| `trackOrder` | Track order | অর্ডার ট্র্যাক |
+| `home` | Home | হোম |
+| `search` | Search | খুঁজুন |
+| `orders` | Orders | অর্ডার |
+| `account` | Account | অ্যাকাউন্ট |
+| `savedItems` | Saved items | সংরক্ষিত |
+| `myAccount` | My account | আমার অ্যাকাউন্ট |
+| `checkDelivery` | Check delivery | ডেলিভারি দেখুন |
+| `closeMenu` | Close menu | মেনু বন্ধ করুন |
+| `openMenu` | Open menu | মেনু খুলুন |
+| `bagCount` | Shopping bag, {count} items | ব্যাগ, {count}টি জিনিস |
+| `mainNav` | Main navigation | মূল মেনু |
+| `shopMenu` | Shop menu | দোকানের মেনু |
+| `quickNav` | Quick navigation | দ্রুত মেনু |
+| `storeInfo` | Store information | দোকানের তথ্য |
+| `skip` | Skip to content | মূল অংশে যান |
+| `shipping` | Shipping | শিপিং |
+| `cancellation` | Cancellation & refunds | বাতিল ও ফেরত |
+| `orderSupport` | Order support | অর্ডার সহায়তা |
+| `shippingCopy` | Delivery is available for eligible Kolkata PIN codes. Check your PIN before shopping and confirm the full address at checkout. Your order receipt shows the estimated delivery deadline. | যোগ্য কলকাতার পিন কোডে ডেলিভারি হয়। কেনার আগে পিন দেখে নিন এবং চেকআউটে পুরো ঠিকানা নিশ্চিত করুন। অর্ডার রসিদে ডেলিভারির সম্ভাব্য সময় লেখা থাকে। |
+| `cancellationCopy` | Open your paid order to request help with damaged, wrong or missing items. Refund requests are reviewed individually and refunded to the original payment method when approved. | ক্ষতিগ্রস্ত, ভুল বা বাদ পড়া জিনিসের জন্য আপনার পেমেন্ট-হওয়া অর্ডার খুলুন। ফেরতের আবেদন আলাদা করে দেখা হয় এবং মঞ্জুর হলে আসল পেমেন্ট মাধ্যমে টাকা ফেরত যায়। |
+| `trackingCopy` | Verify the same mobile number you used at checkout to open your private order history, view tracking, or continue a pending payment. | অর্ডারের ইতিহাস, ট্র্যাকিং বা বাকি পেমেন্ট দেখতে চেকআউটে ব্যবহৃত একই মোবাইল নম্বর যাচাই করুন। |
+| `checkDeliveryAction` | Check delivery | ডেলিভারি দেখুন |
+| `helpReturns` | Help & returns | সহায়তা ও ফেরত |
+| `myOrders` | My orders | আমার অর্ডার |
+| `pageNotFound` | Page not found | পৃষ্ঠা পাওয়া যায়নি |
+| `backHome` | Back to home | হোমে ফিরুন |
+| `goBack` | Go back | ফিরে যান |
+| `tryAgain` | Try again | আবার চেষ্টা করুন |
+| `loading` | Loading… | লোড হচ্ছে… |
+| `checkingSession` | Checking your session… | আপনার সেশন দেখা হচ্ছে… |
+| `itemsTotal` | Items total | জিনিসের মোট |
+| `delivery` | Delivery | ডেলিভারি |
+| `free` | Free | ফ্রি |
+| `tax` | Tax | কর |
+| `total` | Total | মোট |
+| `qty` | Qty: {count} | সংখ্যা: {count} |
+| `decrease` | Decrease {label} | {label} কমান |
+| `increase` | Increase {label} | {label} বাড়ান |
+| `quantity` | Quantity | সংখ্যা |
+| `addToCart` | Add to cart | কার্টে দিন |
+| `soldOut` | Sold out | স্টক শেষ |
+| `saveItem` | Save {name} | {name} সংরক্ষণ করুন |
+| `unsaveItem` | Remove from saved items: {name} | সংরক্ষিত থেকে সরান: {name} |
+| `heroHeadline` | For the morning puja | সকালের পুজোর জন্য |
+| `heroCta` | Shop essentials | প্রয়োজনীয় জিনিস দেখুন |
+| `heroAlt` | Lit brass lamp beside a red hibiscus and red-bordered cotton cloth | জ্বলা পিতলের প্রদীপ, লাল জবা আর লাল পাড়ের কাপড় |
+| `deliverTo` | Deliver to {place} | {place}-এ ডেলিভারি |
+| `kolkata` | Kolkata | কলকাতা |
+| `shopByCategory` | Shop by category | বিভাগ অনুযায়ী দেখুন |
+| `viewAll` | View all | সব দেখুন |
+| `popular` | Popular products | জনপ্রিয় জিনিস |
+| `pujaPackages` | Puja Packages | পুজোর প্যাকেজ |
+| `packageBlurb` | Weekly and monthly deliveries of the essentials for your home puja. | বাড়ির পুজোর প্রয়োজনীয় জিনিস, সাপ্তাহিক বা মাসিক ডেলিভারিতে। |
+| `explorePackages` | Explore packages | প্যাকেজ দেখুন |
+| `packageAlt` | Hand-wrapped puja parcel with a red hibiscus | লাল জবাসহ হাতে মোড়া পুজোর পার্সেল |
+| `packageAltLong` | Hand-wrapped puja parcel beside a brass lamp and red hibiscus | পিতলের প্রদীপ আর লাল জবার পাশে হাতে মোড়া পুজোর পার্সেল |
+| `thaliAlt` | Cotton wicks, incense sticks and camphor on a brass thali | পিতলের থালায় সুতির সলতে, ধূপকাঠি আর করপুর |
+| `allCategories` | All Categories | সব বিভাগ |
+| `filterSort` | Filter & Sort | ফিল্টার ও সাজান |
+| `closeFilters` | Close filters | ফিল্টার বন্ধ করুন |
+| `category` | Category | বিভাগ |
+| `inStockOnly` | In stock only | শুধু স্টকে আছে |
+| `priceRange` | Price range | দামের সীমা |
+| `minimum` | Minimum (₹) | সর্বনিম্ন (₹) |
+| `maximum` | Maximum (₹) | সর্বোচ্চ (₹) |
+| `sortBy` | Sort by | সাজান |
+| `applyFilters` | Apply filters | ফিল্টার লাগান |
+| `sortLabel` | Sort: | সাজান: |
+| `sortProducts` | Sort products | জিনিস সাজান |
+| `filter` | Filter | ফিল্টার |
+| `clearFilters` | Clear filters | ফিল্টার মুছুন |
+| `sortPopular` | Popular | জনপ্রিয় |
+| `sortLow` | Price: low to high | দাম: কম থেকে বেশি |
+| `sortHigh` | Price: high to low | দাম: বেশি থেকে কম |
+| `sortName` | Name | নাম |
+| `tagBrass` | Brass | পিতল |
+| `tagTerracotta` | Terracotta | মাটি |
+| `tagHanging` | Hanging | ঝুলন্ত |
+| `tagPancha` | Panchapradip | পঞ্চপ্রদীপ |
+| `pujaEssentials` | Puja Essentials | পুজোর জিনিস |
+| `categoryUnavailable` | Category unavailable | এই বিভাগ এখন নেই |
+| `browseCategories` | Browse categories | বিভাগ দেখুন |
+| `noFilterMatch` | No products match these filters | এই ফিল্টারে কোনো জিনিস নেই |
+| `searchProducts` | Search products | জিনিস খুঁজুন |
+| `searchPlaceholder` | Search puja essentials | পুজোর জিনিস খুঁজুন |
+| `clearSearch` | Clear search | খোঁজ মুছুন |
+| `productsFor` | Products for “{query}” | “{query}”-এর জিনিস |
+| `noResults` | No results for “{query}” | “{query}”-এর কোনো ফল নেই |
+| `tryAnother` | Try another keyword or browse our categories. | অন্য শব্দ দিয়ে খুঁজুন, অথবা বিভাগ দেখুন। |
+| `trySearching` | Try searching for | এগুলো খুঁজে দেখুন |
+| `exampleBrass` | Brass lamp | পিতলের প্রদীপ |
+| `examplePuja` | Puja lamp | পুজোর প্রদীপ |
+| `exampleChandan` | Chandan | চন্দন |
+| `exampleWicks` | Cotton wicks | সুতির সলতে |
+| `exampleArati` | Arati | আরতি |
+| `packSize` | Pack size | প্যাকের মাপ |
+| `material` | Material | উপাদান |
+| `addToBag` | Add to bag | ব্যাগে দিন |
+| `deliveringTo` | Delivering to {place} · {pin} | {place}-এ ডেলিভারি · {pin} |
+| `checkAvailability` | Check delivery availability | ডেলিভারি আছে কিনা দেখুন |
+| `nothingSaved` | Nothing saved yet | এখনো কিছু সংরক্ষণ করা হয়নি |
+| `saveHint` | Tap the heart on an item to save it here. | কোনো জিনিস এখানে রাখতে হার্টে চাপুন। |
+| `moveToBag` | Move to bag | ব্যাগে নিন |
+| `removeNamed` | Remove {name} | {name} সরান |
+| `item` | item | জিনিস |
+| `shoppingBag` | Shopping Bag | কেনাকাটার ব্যাগ |
+| `checkoutSaved` | Check out saved package | সংরক্ষিত প্যাকেজ চেকআউট করুন |
+| `removePackage` | Remove package | প্যাকেজ সরান |
+| `individualItems` | Individual items | আলাদা জিনিস |
+| `bagEmpty` | Your bag is empty | আপনার ব্যাগ খালি |
+| `unavailableItem` | Unavailable item | জিনিসটি এখন নেই |
+| `onlyAvailable` | Only {count} available. | মাত্র {count}টি আছে। |
+| `itemUnavailable` | This item is unavailable. | এই জিনিসটি এখন নেই। |
+| `itemQuantity` | {name} quantity | {name}-এর সংখ্যা |
+| `checkout` | Checkout | চেকআউট |
+| `pinIntro` | Enter your Kolkata PIN to see the delivery timeline for your location. | আপনার এলাকার ডেলিভারির সময় জানতে কলকাতার পিন লিখুন। |
+| `pinLabel` | PIN code | পিন কোড |
+| `deliveryDay` | Delivery within 24 hours | ২৪ ঘণ্টার মধ্যে ডেলিভারি |
+| `checking` | Checking… | দেখা হচ্ছে… |
+| `confirmLocation` | Confirm location | ঠিকানা নিশ্চিত করুন |
+| `checkPin` | Check PIN | পিন দেখুন |
+| `deliveryPaused` | Delivery not available right now | এখন ডেলিভারি হচ্ছে না |
+| `tryAnotherPin` | Enter another Kolkata PIN to check availability. | অন্য একটি কলকাতার পিন দিয়ে দেখুন। |
+| `editPin` | Edit PIN ({pin}) | পিন বদলান ({pin}) |
+| `tryAnotherAddress` | Try another address | অন্য ঠিকানা চেষ্টা করুন |
+| `welcome` | Welcome to Naivedya | নৈবেদ্যতে স্বাগতম |
+| `mobileNumber` | Mobile number | মোবাইল নম্বর |
+| `mobilePlaceholder` | 10-digit mobile number | ১০ সংখ্যার মোবাইল নম্বর |
+| `sending` | Sending code… | কোড যাচ্ছে… |
+| `continue` | Continue | এগিয়ে যান |
+| `continueGuest` | Continue as guest | অতিথি হিসেবে এগিয়ে যান |
+| `guestHint` | Verify your mobile to access your order later. | পরে অর্ডার দেখতে মোবাইল নম্বর যাচাই করুন। |
+| `verifyMobile` | Verify your mobile number | মোবাইল নম্বর যাচাই করুন |
+| `enterCode` | Enter the six-digit code for | এই নম্বরে আসা ছয় সংখ্যার কোড লিখুন |
+| `verificationCode` | Verification code | যাচাইকরণ কোড |
+| `demoCode` | Demo verification code | ডেমো যাচাইকরণ কোড |
+| `resendIn` | Resend code in {time} | {time}-এ কোড আবার পাঠান |
+| `resend` | Resend code | কোড আবার পাঠান |
+| `verifying` | Verifying… | যাচাই হচ্ছে… |
+| `verifyCode` | Verify code | কোড যাচাই করুন |
+| `changeMobile` | Change mobile number | মোবাইল নম্বর বদলান |
+| `fullName` | Full name | পুরো নাম |
+| `street` | Street address | রাস্তার ঠিকানা |
+| `locality` | Locality / Area | এলাকা |
+| `pinKolkata` | PIN code (Kolkata) | পিন কোড (কলকাতা) |
+| `addressLabel` | Address label | ঠিকানার নাম |
+| `saveAddress` | Save this address for future orders | পরের অর্ডারের জন্য এই ঠিকানা রাখুন |
+| `defaultAddress` | Default address | মূল ঠিকানা |
+| `setDefault` | Set as default address | মূল ঠিকানা করুন |
+| `saving` | Saving… | সংরক্ষণ হচ্ছে… |
+| `cart` | Cart | কার্ট |
+| `address` | Address | ঠিকানা |
+| `payment` | Payment | পেমেন্ট |
+| `order` | Order | অর্ডার |
+| `checkoutProgress` | Checkout progress | চেকআউটের ধাপ |
+| `deliveryAddress` | Delivery address | ডেলিভারির ঠিকানা |
+| `savedAddress` | Saved address | সংরক্ষিত ঠিকানা |
+| `newAddress` | Enter a new address | নতুন ঠিকানা লিখুন |
+| `dropN` | Drop {number} | ড্রপ {number} |
+| `withinDay` | Within 24 hours | ২৪ ঘণ্টার মধ্যে |
+| `upcoming` | Upcoming | আসন্ন |
+| `inTransit` | In transit | পথে আছে |
+| `delivered` | Delivered | পৌঁছেছে |
+| `refreshCheckout` | Refresh your checkout | চেকআউট আবার শুরু করুন |
+| `freshQuote` | Get a fresh quote | নতুন হিসাব নিন |
+| `quoteExpired` | The quote is unavailable or has expired. | এই হিসাবটি নেই, অথবা এর সময় শেষ। |
+| `change` | Change | বদলান |
+| `estimatedArrival` | Estimated arrival | সম্ভাব্য পৌঁছানো |
+| `deliverySchedule` | Delivery Schedule | ডেলিভারির তালিকা |
+| `firstDropDay` | First drop within 24 hours | প্রথম ড্রপ ২৪ ঘণ্টার মধ্যে |
+| `packageCheckout` | Package Checkout | প্যাকেজ চেকআউট |
+| `reviewPay` | Review and pay | দেখে পেমেন্ট করুন |
+| `dropsCount` | {name} ({count} drops) | {name} ({count}টি ড্রপ) |
+| `payable` | Payable amount | দেয় টাকা |
+| `prepaid` | Prepaid (Pay online) | আগে পেমেন্ট (অনলাইনে) |
+| `payOnce` | Pay once for every delivery. | সব ডেলিভারির জন্য একবার পেমেন্ট। |
+| `quoteExpires` | Quote expires {time} | হিসাবের সময় শেষ {time} |
+| `reviewFresh` | Review a fresh quote | নতুন হিসাব দেখুন |
+| `preparing` | Preparing payment… | পেমেন্ট তৈরি হচ্ছে… |
+| `resumePayment` | Resume payment | পেমেন্ট চালিয়ে যান |
+| `payAmount` | Pay {amount} | {amount} দিন |
+| `packageIntro` | Curated puja essentials, delivered to your home on a weekly or monthly plan. | বাছাই করা পুজোর জিনিস, সাপ্তাহিক বা মাসিক পরিকল্পনায় বাড়িতে পৌঁছে যায়। |
+| `pujaParcels` | {count} {cadence} puja parcels | {count}টি {cadence} পুজোর পার্সেল |
+| `durationWrap` | ({duration}) | ({duration}) |
+| `packageDetailIntro` | {count} {cadence} drops of essential puja items. | প্রয়োজনীয় পুজোর জিনিসের {count}টি {cadence} ড্রপ। |
+| `packageDetails` | {name} – Package Details | {name} – প্যাকেজের বিবরণ |
+| `eachDrop` | What’s in each {cadence} drop? | প্রতিটি {cadence} ড্রপে কী থাকে? |
+| `yourDrops` | Your {count} {cadence} drops | আপনার {count}টি {cadence} ড্রপ |
+| `packageSupport` | First delivery within 24 hours for eligible Kolkata addresses. The full term is prepaid and can be renewed manually. | যোগ্য কলকাতার ঠিকানায় প্রথম ডেলিভারি ২৪ ঘণ্টার মধ্যে। পুরো মেয়াদের টাকা আগে দিতে হয় এবং মেয়াদ শেষে নিজে নবায়ন করা যায়। |
+| `totalDrops` | Total ({count} drops) | মোট ({count}টি ড্রপ) |
+| `choosePackage` | Choose Package | প্যাকেজ বেছে নিন |
+| `myPackages` | My Packages | আমার প্যাকেজ |
+| `deliveredOf` | {done} of {total} delivered | {total}-এর মধ্যে {done}টি পৌঁছেছে |
+| `noPackages` | No packages yet | এখনো কোনো প্যাকেজ নেই |
+| `packageUnavailable` | Package unavailable | প্যাকেজটি এখন নেই |
+| `packageAddress` | Package delivery address | প্যাকেজের ডেলিভারি ঠিকানা |
+| `myPackage` | My Package | আমার প্যাকেজ |
+| `upcomingAddress` | This address applies to upcoming drops after your first delivery. | প্রথম ডেলিভারির পরের ড্রপগুলোতে এই ঠিকানা লাগবে। |
+| `updateAddress` | Update delivery address | ডেলিভারি ঠিকানা বদলান |
+| `scheduledDrops` | {count} scheduled drops | {count}টি নির্ধারিত ড্রপ |
+| `inProgress` | In Progress | চলছে |
+| `completed` | Completed | সম্পন্ন |
+| `deliveriesOf` | {done} of {total} deliveries | {total}-এর মধ্যে {done}টি ডেলিভারি |
+| `nextDrop` | Next Drop · {date} | পরের ড্রপ · {date} |
+| `dropOf` | Drop {number} of {total} | {total}-এর মধ্যে ড্রপ {number} |
+| `manageAddress` | Manage Delivery Address | ডেলিভারি ঠিকানা বদলান |
+| `renewPackage` | Renew Package | প্যাকেজ নবায়ন করুন |
+| `renewHint` | Review dates for another term | আরেক মেয়াদের তারিখ দেখুন |
+| `paymentPending` | Payment pending | পেমেন্ট বাকি |
+| `paymentExpired` | Payment expired | পেমেন্টের সময় শেষ |
+| `confirmed` | Confirmed | নিশ্চিত |
+| `packed` | Packed | প্যাক হয়েছে |
+| `pending` | Pending | বাকি |
+| `demoIntro` | Choose a payment outcome to test the checkout flow. | চেকআউট পরীক্ষা করতে একটি পেমেন্ট ফল বেছে নিন। |
+| `demoPayment` | Demo payment | ডেমো পেমেন্ট |
+| `paymentFailed` | Payment failed. | পেমেন্ট হয়নি। |
+| `retryWindow` | You can retry this order before the payment window closes. | সময় শেষ হওয়ার আগে এই অর্ডারের পেমেন্ট আবার করতে পারেন। |
+| `reference` | Reference | রেফারেন্স |
+| `viewPayment` | View payment status | পেমেন্টের অবস্থা দেখুন |
+| `simulatePay` | Simulate payment of {amount} | {amount} পেমেন্ট দেখুন |
+| `simulatePending` | Simulate pending payment | বাকি পেমেন্ট দেখুন |
+| `simulateFailed` | Simulate failed payment | ব্যর্থ পেমেন্ট দেখুন |
+| `payLater` | Pay later | পরে পেমেন্ট করুন |
+| `windowExpired` | Payment window expired | পেমেন্টের সময় শেষ |
+| `checkingPayment` | Checking your payment | আপনার পেমেন্ট দেখা হচ্ছে |
+| `awaitingPayment` | Payment awaiting completion | পেমেন্ট এখনো সম্পূর্ণ হয়নি |
+| `startAgain` | Start checkout again to get a new delivery quote. | নতুন ডেলিভারি হিসাবের জন্য চেকআউট আবার শুরু করুন। |
+| `verifyingPayment` | Your payment is being verified. This usually takes a few moments. | আপনার পেমেন্ট যাচাই হচ্ছে। সাধারণত কিছুক্ষণ লাগে। |
+| `resumeToConfirm` | Resume payment to confirm this order. | এই অর্ডার নিশ্চিত করতে পেমেন্ট চালিয়ে যান। |
+| `newCheckout` | Start a new checkout | নতুন চেকআউট শুরু করুন |
+| `checkStatus` | Check status | অবস্থা দেখুন |
+| `returnOrders` | Return to orders | অর্ডারে ফিরুন |
+| `thankYou` | Thank you! | ধন্যবাদ! |
+| `orderConfirmed` | Your order has been confirmed. | আপনার অর্ডার নিশ্চিত হয়েছে। |
+| `orderReference` | Order reference | অর্ডার রেফারেন্স |
+| `expectedDelivery` | Expected delivery | সম্ভাব্য ডেলিভারি |
+| `arrivalLine` | Your {kind} is expected by {time} in {city}. | আপনার {kind} {city}-এ {time}-এর মধ্যে আসার কথা। |
+| `firstDrop` | first drop | প্রথম ড্রপ |
+| `orderNoun` | order | অর্ডার |
+| `viewTracking` | View tracking | ট্র্যাকিং দেখুন |
+| `continueShopping` | Continue shopping | কেনাকাটা চালিয়ে যান |
+| `viewRefund` | View refund status | ফেরতের অবস্থা দেখুন |
+| `needHelp` | Need help with this order? | এই অর্ডারে সাহায্য চান? |
+| `trackReturn` | Track your return request | ফেরতের আবেদন দেখুন |
+| `requestReturn` | Request a return or get order support | ফেরত চাইুন বা অর্ডারের সাহায্য নিন |
+| `orderConfirmedStep` | Order confirmed | অর্ডার নিশ্চিত |
+| `riderAssigned` | Rider assigned | রাইডার নির্ধারিত |
+| `orderTitle` | Order {ref} | অর্ডার {ref} |
+| `deliveryIn` | Delivery in {place}, {city} | {city}-এর {place}-এ ডেলিভারি |
+| `estimated` | Estimated delivery | সম্ভাব্য ডেলিভারি |
+| `itemsInOrder` | Items in this order ({count}) | এই অর্ডারে জিনিস ({count}টি) |
+| `refreshTracking` | Refresh tracking | ট্র্যাকিং রিফ্রেশ করুন |
+| `orderDetails` | Order details | অর্ডারের বিবরণ |
+| `orderMeta` | Order {ref} · {date} | অর্ডার {ref} · {date} |
+| `itemsCount` | Items ({count}) | জিনিস ({count}টি) |
+| `paymentReceipt` | Payment receipt | পেমেন্ট রসিদ |
+| `paymentSummary` | Payment summary | পেমেন্টের হিসাব |
+| `amountPaid` | Amount paid | দেওয়া টাকা |
+| `prepaidShort` | Prepaid | আগে পেমেন্ট |
+| `paid` | Paid | পেমেন্ট হয়েছে |
+| `managePackage` | Manage package | প্যাকেজ দেখুন |
+| `orderViews` | Order views | অর্ডারের তালিকা |
+| `recentOrders` | Recent orders | সাম্প্রতিক অর্ডার |
+| `pastOrders` | Past orders | আগের অর্ডার |
+| `noPast` | No past orders | আগের কোনো অর্ডার নেই |
+| `noRecent` | No recent orders | সাম্প্রতিক কোনো অর্ডার নেই |
+| `placedOn` | Placed {date} | অর্ডার {date} |
+| `itemCount` | {count} items | {count}টি জিনিস |
+| `buyAgain` | Buy again | আবার কিনুন |
+| `myAccountTitle` | My Account | আমার অ্যাকাউন্ট |
+| `myProfile` | My profile | আমার প্রোফাইল |
+| `guestCheckout` | Guest checkout | অতিথি চেকআউট |
+| `savedAddresses` | Saved Addresses | সংরক্ষিত ঠিকানা |
+| `supportReturns` | Support (Help & Returns) | সহায়তা (সাহায্য ও ফেরত) |
+| `signInAccount` | Sign in to your account | অ্যাকাউন্টে ঢুকুন |
+| `signOut` | Sign Out | বেরিয়ে যান |
+| `signInMobile` | Sign in with your mobile number | মোবাইল নম্বর দিয়ে ঢুকুন |
+| `helpAndReturns` | Help & Returns | সাহায্য ও ফেরত |
+| `addressIntro` | Manage your delivery addresses. | ডেলিভারির ঠিকানা দেখুন ও বদলান। |
+| `editAddress` | Edit address | ঠিকানা বদলান |
+| `addAddressTitle` | Add address | ঠিকানা যোগ করুন |
+| `cancel` | Cancel | বাতিল |
+| `removeAddress` | Remove this address | এই ঠিকানা সরান |
+| `defaultBadge` | Default | মূল |
+| `edit` | Edit | বদলান |
+| `noAddresses` | No saved addresses | কোনো সংরক্ষিত ঠিকানা নেই |
+| `addAddress` | Add Address | ঠিকানা যোগ করুন |
+| `saveAddressBtn` | Save address | ঠিকানা সংরক্ষণ করুন |
+| `reasonDamaged` | Received a damaged item | ক্ষতিগ্রস্ত জিনিস পেয়েছি |
+| `reasonWrong` | Received a wrong item | ভুল জিনিস পেয়েছি |
+| `reasonMissing` | Item is missing from the package | প্যাকেজে জিনিস বাদ পড়েছে |
+| `reasonOther` | Other | অন্যান্য |
+| `returnsIntro` | Get help with your order or request a return. | অর্ডারের সাহায্য নিন বা ফেরত চাইুন। |
+| `noPaid` | No paid orders | পেমেন্ট-হওয়া অর্ডার নেই |
+| `choosePaidHint` | Choose a paid order to request a return. | ফেরত চাইতে একটি পেমেন্ট-হওয়া অর্ডার বেছে নিন। |
+| `selectOrder` | Select Order | অর্ডার বেছে নিন |
+| `choosePaid` | Choose a paid order | পেমেন্ট-হওয়া অর্ডার বেছে নিন |
+| `reasonLegend` | Reason for Return | ফেরতের কারণ |
+| `extraDetails` | Extra details | আরও বিবরণ |
+| `optional` | Optional | ঐচ্ছিক |
+| `uploadPhotos` | Upload Photos | ছবি দিন |
+| `maxPhotos` | (max 5) | (সর্বোচ্চ ৫) |
+| `returnPhoto` | Return photo {index} | ফেরতের ছবি {index} |
+| `removePhoto` | Remove photo {index} | ছবি {index} সরান |
+| `reading` | Reading… | পড়ছে… |
+| `addPhoto` | Add Photo | ছবি যোগ করুন |
+| `refundMethod` | Refund Method | ফেরতের উপায় |
+| `originalMethod` | Original Payment Method | আসল পেমেন্ট মাধ্যম |
+| `submitting` | Submitting… | জমা হচ্ছে… |
+| `submitRequest` | Submit Request | আবেদন জমা দিন |
+| `requestReceived` | Request received | আবেদন পৌঁছেছে |
+| `requestReceivedCopy` | Your return request is awaiting review. | আপনার ফেরতের আবেদন দেখা হচ্ছে। |
+| `underReview` | Under review | দেখা হচ্ছে |
+| `underReviewCopy` | The merchant is reviewing your request. | দোকান আপনার আবেদন দেখছে। |
+| `refundInitiated` | Refund initiated | ফেরত শুরু হয়েছে |
+| `refundInitiatedCopy` | Your refund has been initiated to your original payment method. | আসল পেমেন্ট মাধ্যমে আপনার টাকা ফেরত শুরু হয়েছে। |
+| `refundProcessed` | Refund processed | ফেরত সম্পন্ন |
+| `refundProcessedCopy` | Your refund has been marked as processed. | আপনার ফেরত সম্পন্ন হিসেবে চিহ্নিত হয়েছে। |
+| `refundStatus` | Refund Status | ফেরতের অবস্থা |
+| `refundIntro` | Track the status of your refund request. | ফেরতের আবেদনের অবস্থা দেখুন। |
+| `requestDetails` | Request Details | আবেদনের বিবরণ |
+| `requestId` | Request ID | আবেদন নম্বর |
+| `refundAmount` | Refund amount | ফেরতের টাকা |
+| `pendingReview` | Pending review | এখনো দেখা হয়নি |
+| `refundMethodLabel` | Refund method | ফেরতের উপায় |
+| `evidence` | Evidence | প্রমাণ |
+| `photoCount` | {count} photos | {count}টি ছবি |
+| `requestTimeline` | Request Timeline | আবেদনের সময়রেখা |
+| `refreshStatus` | Refresh status | অবস্থা রিফ্রেশ করুন |
+| `addedToBag` | {name} added to bag. | {name} ব্যাগে যোগ হয়েছে। |
+| `viewBag` | View bag | ব্যাগ দেখুন |
+| `bagAtLimit` | Your bag already has the available quantity. | ব্যাগে ইতিমধ্যে যতটা আছে, তার বেশি নেই। |
+| `soldOutNotice` | This item is sold out. | এই জিনিসটির স্টক শেষ। |
+| `loadingSaved` | Loading your saved items. | সংরক্ষিত জিনিস আনা হচ্ছে। |
+| `addressSaved` | Address saved. | ঠিকানা সংরক্ষিত হয়েছে। |
+| `addressRemoved` | Address removed. | ঠিকানা সরানো হয়েছে। |
+| `addressUpdated` | Address updated for upcoming drops. | আসন্ন ড্রপের ঠিকানা বদলানো হয়েছে। |
+| `unavailableQty` | These items are unavailable at the requested quantities. | চাওয়া সংখ্যায় এই জিনিসগুলো এখন নেই। |
+| `someAdded` | Available items added to bag. | যেগুলো আছে, সেগুলো ব্যাগে যোগ হয়েছে। |
+| `allAdded` | Items added to bag. | জিনিসগুলো ব্যাগে যোগ হয়েছে। |
+| `photoOpen` | Could not open that photo. | এই ছবিটি খোলা যায়নি। |
+| `photoType` | Choose JPEG, PNG or WebP photos. | JPEG, PNG বা WebP ছবি বেছে নিন। |
+| `photoSize` | Choose photos under 15 MB. | ১৫ এমবির কম ছবি বেছে নিন। |
+| `photoLimit` | Add up to five photos. | সর্বোচ্চ পাঁচটি ছবি দিন। |
+| `photoSmaller` | Choose a smaller photo. | আরও ছোট ছবি বেছে নিন। |
+| `selectPaid` | Select a paid order. | একটি পেমেন্ট-হওয়া অর্ডার বেছে নিন। |
+| `damagedPhoto` | Add a photo of the damaged item. | ক্ষতিগ্রস্ত জিনিসের একটি ছবি দিন। |
+
+## Catalog
+
+Product, category, pack, place, and search names stay in English in the catalogue and are shown in Bengali when that language is selected.
+
+| English | Bengali |
+| --- | --- |
+| Lamps & diyas | প্রদীপ |
+| Incense | ধূপ |
+| Wicks | সলতে |
+| Brassware | পিতলের জিনিস |
+| Cloth | কাপড় |
+| Packages | প্যাকেজ |
+| Brass Lotus Diya | পিতলের পদ্ম প্রদীপ |
+| Brass Panchapradip | পিতলের পঞ্চপ্রদীপ |
+| Terracotta Diya | মাটির প্রদীপ |
+| Terracotta Diyas | মাটির প্রদীপ |
+| Brass Hanging Diya | ঝুলন্ত পিতলের প্রদীপ |
+| Brass Pradip | পিতলের প্রদীপ |
+| Chandan Incense Sticks | চন্দন ধূপকাঠি |
+| Chandan Dhoop Cones | চন্দন ধূপ |
+| Chandan Powder | চন্দন গুঁড়ো |
+| Incense Sticks | ধূপকাঠি |
+| Cotton Wicks | সুতির সলতে |
+| Brass Bell | পিতলের ঘণ্টা |
+| Gamcha | গামছা |
+| Camphor | করপুর |
+| Sindoor | সিঁদুর |
+| Weekly Plan | সাপ্তাহিক পরিকল্পনা |
+| Monthly Plan | মাসিক পরিকল্পনা |
+| weekly | সাপ্তাহিক |
+| monthly | মাসিক |
+| 1 month | ১ মাস |
+| 4 months | ৪ মাস |
+| 1 pc | ১টি |
+| 5 wick | ৫ সলতে |
+| Set of 6 | ৬টির সেট |
+| Set of 2 | ২টির সেট |
+| Set of 12 | ১২টির সেট |
+| 50 g | ৫০ গ্রাম |
+| 100 g | ১০০ গ্রাম |
+| 25 g | ২৫ গ্রাম |
+| 10 g | ১০ গ্রাম |
+| 100 pcs | ১০০টি |
+| 200 pcs | ২০০টি |
+| 50 pcs | ৫০টি |
+| 12 sticks | ১২ কাঠি |
+| 1 pack | ১ প্যাকেট |
+| 2 packs | ২ প্যাকেট |
+| Cotton, red border | সুতি, লাল পাড় |
+| Brass | পিতল |
+| Terracotta | মাটি |
+| Sandalwood fragrance | চন্দনের গন্ধ |
+| Sandalwood powder | চন্দন গুঁড়ো |
+| Cotton | সুতি |
+| A traditional brass oil lamp for daily puja. Let it cool before cleaning and wipe it dry after use. | প্রতিদিনের পুজোর জন্য ঐতিহ্যের পিতলের প্রদীপ। পরিষ্কারের আগে ঠান্ডা হতে দিন, ব্যবহারের পর শুকনো কাপড়ে মুছে রাখুন। |
+| Cotton wicks, incense, camphor and sindoor in each drop | প্রতিটি ডেলিভারিতে সলতে, ধূপ, করপুর আর সিঁদুর। |
+| Cotton wicks, incense, diyas, camphor and sindoor in each drop | প্রতিটি ডেলিভারিতে সলতে, ধূপ, প্রদীপ, করপুর আর সিঁদুর। |
+| Home | বাড়ি |
+| B.B.D. Bagh | বি.বি.ডি. বাগ |
+| Ballygunge | বালিগঞ্জ |
+| Bhawanipore | ভবানীপুর |
+| Kalighat | কালীঘাট |
+| Alipore | আলিপুর |
+| Topsia | টপসিয়া |
+| New Alipore | নিউ আলিপুর |
+| Jodhpur Park | যোধপুর পার্ক |
+| Chowringhee | চৌরঙ্গী |
+| Salt Lake | সল্ট লেক |
+| Mukundapur | মুকুন্দপুর |
+| Kasba | কসবা |
+| Sonarpur | সোনারপুর |
+| Brass lamp | পিতলের প্রদীপ |
+| Puja lamp | পুজোর প্রদীপ |
+| Chandan | চন্দন |
+| Arati | আরতি |
+| puja accessories | পুজোর সরঞ্জাম |
+| five wick | পাঁচ সলতে |
+| pancha pradip | পঞ্চপ্রদীপ |
+| clay lamps | মাটির প্রদীপ |
+| mitti diya | মাটির প্রদীপ |
+| hanging lamp | ঝুলন্ত প্রদীপ |
+| chandan incense | চন্দন ধূপ |
+| chandan agarbatti | চন্দন ধূপকাঠি |
+| sandalwood | চন্দন |
+| dhup | ধূপ |
+| chandan dhoop | চন্দন ধূপ |
+| chandan powder | চন্দন গুঁড়ো |
+| morning incense | সকালের ধূপ |
+| agarbatti | ধূপকাঠি |
+| solte | সলতে |
+| wick | সলতে |
+| cotton batti | সুতির সলতে |
+| ghanta | ঘণ্টা |
+| ritual cloth | পূজার কাপড় |
+| puja cloth | পূজার কাপড় |
+| Original payment method | আসল পেমেন্ট মাধ্যম |
+| Original Payment Method | আসল পেমেন্ট মাধ্যম |
+
+## Messages
+
+These are replies from the shop, including checkout, payment, delivery, and refund updates.
+
+| English | Bengali |
+| --- | --- |
+| The store is temporarily unavailable. Please try again. | দোকান এই মুহূর্তে খোলা যাচ্ছে না। আবার চেষ্টা করুন। |
+| Something went wrong. Please try again. | কিছু একটা গণ্ডগোল হয়েছে। আবার চেষ্টা করুন। |
+| This PIN is outside the current delivery area. | এই পিন এখনকার ডেলিভারি এলাকার বাইরে। |
+| Delivery to this PIN is temporarily paused. | এই পিনে ডেলিভারি সাময়িকভাবে বন্ধ। |
+| Enter the recipient's full name. | প্রাপকের পুরো নাম লিখুন। |
+| Enter a valid delivery mobile number. | ডেলিভারির সঠিক মোবাইল নম্বর লিখুন। |
+| Enter the house number and street. | বাড়ির নম্বর ও রাস্তা লিখুন। |
+| Enter the locality. | এলাকার নাম লিখুন। |
+| Enter a six-digit PIN. | ছয় সংখ্যার পিন লিখুন। |
+| Check the highlighted address fields. | দাগানো ঠিকানার ঘরগুলো দেখুন। |
+| Address not found. | ঠিকানা পাওয়া যায়নি। |
+| Remove an address before adding another. | নতুন ঠিকানা যোগ করতে আগে একটি সরান। |
+| Enter a valid 10-digit Indian mobile number. | ভারতের সঠিক ১০ সংখ্যার মোবাইল নম্বর লিখুন। |
+| Too many verification requests. Try again later. | অনেকবার কোড চাওয়া হয়েছে। পরে আবার চেষ্টা করুন। |
+| Wait 30 seconds before requesting another code. | আরেকটি কোড চাইতে ৩০ সেকেন্ড অপেক্ষা করুন। |
+| Enter the six-digit verification code. | ছয় সংখ্যার যাচাইকরণ কোড লিখুন। |
+| The code expired or ran out of attempts. Request a new code. | কোডের সময় শেষ, অথবা চেষ্টা শেষ। নতুন কোড নিন। |
+| That code does not match. | কোডটি মেলেনি। |
+| That code has already been used. | এই কোড আগেই ব্যবহার হয়েছে। |
+| SMS verification is temporarily unavailable. | এসএমএস যাচাই এখন বন্ধ আছে। |
+| This product could not be found. | এই জিনিসটি পাওয়া যায়নি। |
+| This package could not be found. | এই প্যাকেজটি পাওয়া যায়নি। |
+| Refresh the quote before payment. | পেমেন্টের আগে হিসাব আবার নিন। |
+| This order could not be found. | এই অর্ডারটি পাওয়া যায়নি। |
+| Packages are checked out separately from individual items. | প্যাকেজ আলাদা জিনিসের সঙ্গে একসাথে চেকআউট হয় না। |
+| Add items to your bag before checking out. | চেকআউটের আগে ব্যাগে জিনিস দিন। |
+| An item in your bag is no longer available. | ব্যাগের একটি জিনিস আর নেই। |
+| Choose between 1 and 10 of each item. | প্রতিটি জিনিস ১ থেকে ১০টির মধ্যে বেছে নিন। |
+| An item is unavailable at the selected quantity. Review your bag. | বেছে নেওয়া সংখ্যায় একটি জিনিস নেই। ব্যাগ দেখে নিন। |
+| Stock changed. Review the selected items and try again. | স্টক বদলেছে। বেছে নেওয়া জিনিস দেখে আবার চেষ্টা করুন। |
+| A checkout attempt key is required. | চেকআউটের একটি চাবি দরকার। |
+| Start a new checkout attempt for this quote. | এই হিসাবের জন্য নতুন চেকআউট শুরু করুন। |
+| Online payment is temporarily unavailable. | অনলাইন পেমেন্ট সাময়িকভাবে বন্ধ। |
+| The order changed. Review a fresh quote. | অর্ডার বদলেছে। নতুন হিসাব দেখুন। |
+| Choose a demo payment outcome. | একটি ডেমো পেমেন্ট ফল বেছে নিন। |
+| A paid package is required. | একটি পেমেন্ট-হওয়া প্যাকেজ দরকার। |
+| There are no upcoming drops to update. | বদলানোর মতো আসন্ন ড্রপ নেই। |
+| This return could not be found. | এই ফেরতের আবেদন পাওয়া যায়নি। |
+| Choose a paid order. | একটি পেমেন্ট-হওয়া অর্ডার বেছে নিন। |
+| Returns are available for paid orders. | পেমেন্ট-হওয়া অর্ডারেই ফেরত চাওয়া যায়। |
+| Choose a reason for the return. | ফেরতের একটি কারণ বেছে নিন। |
+| Add up to five JPEG, PNG or WebP photos. A damaged item needs at least one photo. | সর্বোচ্চ পাঁচটি JPEG, PNG বা WebP ছবি দিন। ক্ষতিগ্রস্ত জিনিসে অন্তত একটি ছবি লাগবে। |
+| This refund transition is unavailable. | ফেরতের এই পরিবর্তন এখন সম্ভব নয়। |
+| Enter an amount within the amount paid. | দেওয়া টাকার মধ্যে একটি অঙ্ক লিখুন। |
+| This refund was updated. Refresh the request. | এই ফেরত বদলেছে। আবেদন রিফ্রেশ করুন। |
+| Order placed | অর্ডার হয়েছে |
+| Awaiting payment confirmation. | পেমেন্ট নিশ্চিত হওয়ার অপেক্ষায়। |
+| Order confirmed | অর্ডার নিশ্চিত |
+| Demo payment confirmed. | ডেমো পেমেন্ট নিশ্চিত হয়েছে। |
+| Payment attempt failed | পেমেন্টের চেষ্টা ব্যর্থ |
+| Payment can be retried before the hold expires. | সময় শেষ হওয়ার আগে পেমেন্ট আবার করা যায়। |
+| Packed | প্যাক হয়েছে |
+| Rider assigned | রাইডার নির্ধারিত |
+| Delivered | পৌঁছেছে |
+| The merchant updated your delivery. | দোকান আপনার ডেলিভারি হালনাগাদ করেছে। |
+| Request received | আবেদন পৌঁছেছে |
+| Your return request is awaiting review. | আপনার ফেরতের আবেদন দেখা হচ্ছে। |
+| Under review | দেখা হচ্ছে |
+| The merchant is reviewing your request. | দোকান আপনার আবেদন দেখছে। |
+| Refund initiated | ফেরত শুরু হয়েছে |
+| The recorded refund was initiated to your original payment method. | লিপিবদ্ধ ফেরত আসল পেমেন্ট মাধ্যমে শুরু হয়েছে। |
+| Refund processed | ফেরত সম্পন্ন |
+| The merchant marked the refund as processed. | দোকান ফেরতকে সম্পন্ন হিসেবে চিহ্নিত করেছে। |
+| Page not found. | পৃষ্ঠা পাওয়া যায়নি। |
+| Verify your mobile number to continue. | এগোতে মোবাইল নম্বর যাচাই করুন। |
+| Sign in to manage your account. | অ্যাকাউন্ট দেখতে সাইন ইন করুন। |
+| Staff access is required. | স্টাফ প্রবেশাধিকার দরকার। |

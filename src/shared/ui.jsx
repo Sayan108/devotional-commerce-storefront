@@ -1,7 +1,8 @@
 ﻿import React from "react";
 import { Link, Navigate, useLocation } from "react-router-dom";
 import { useStore } from "./store";
-import { money } from "./format";
+import { money, numeral } from "./format";
+import { useI18n } from "./i18n";
 const strokes = {
   menu: <path d="M3 6h18M3 12h18M3 18h18"/>,
   search: <><circle cx="10.6" cy="10.6" r="6.6"/><path d="m16 16 4.5 4.5"/></>,
@@ -47,16 +48,21 @@ export function Button({ to, icon, secondary, children, className = "", ...props
 }
 
 export function Title({ children, back, intro }) {
-  return <div className="page-title"><div>{back && <Link className="icon-button" to={back} aria-label="Go back"><Icon name="back"/></Link>}<h1>{children}</h1></div>{intro && <p>{intro}</p>}</div>;
+  const { t } = useI18n();
+  return <div className="page-title"><div>{back && <Link className="icon-button" to={back} aria-label={t("goBack")}><Icon name="back"/></Link>}<h1>{children}</h1></div>{intro && <p>{intro}</p>}</div>;
 }
 
 export function ErrorMessage({ error }) {
-  return error ? <p className="form-error" role="alert">{error.message || error}</p> : null;
+  const { tx } = useI18n();
+  if (!error) return null;
+  const message = typeof error === "string" ? error : error.message;
+  return <p className="form-error" role="alert">{tx(message)}</p>;
 }
 
 export function LoadState({ query }) {
-  if (query.error) return <div className="empty"><ErrorMessage error={query.error}/><Button secondary onClick={query.reload}>Try again</Button></div>;
-  return <p className="loading" role="status">Loading…</p>;
+  const { t } = useI18n();
+  if (query.error) return <div className="empty"><ErrorMessage error={query.error}/><Button secondary onClick={query.reload}>{t("tryAgain")}</Button></div>;
+  return <p className="loading" role="status">{t("loading")}</p>;
 }
 
 export function Empty({ title, children, to, action, image }) {
@@ -66,19 +72,22 @@ export function Empty({ title, children, to, action, image }) {
   </div>;
 }
 
-export function Stepper({ label = "Quantity", value, onChange, max = 10 }) {
-  return <div className="stepper" aria-label={label} role="group">
-    <button type="button" aria-label={"Decrease " + label.toLowerCase()} disabled={value <= 1} onClick={() => onChange(value - 1)}><Icon name="minus" size={17}/></button>
-    <span aria-live="polite">{value}</span>
-    <button type="button" aria-label={"Increase " + label.toLowerCase()} disabled={value >= max} onClick={() => onChange(value + 1)}><Icon name="plus" size={17}/></button>
+export function Stepper({ label, value, onChange, max = 10 }) {
+  const { t } = useI18n();
+  const name = label || t("quantity");
+  return <div className="stepper" aria-label={name} role="group">
+    <button type="button" aria-label={t("decrease", { label: name })} disabled={value <= 1} onClick={() => onChange(value - 1)}><Icon name="minus" size={17}/></button>
+    <span aria-live="polite">{numeral(value)}</span>
+    <button type="button" aria-label={t("increase", { label: name })} disabled={value >= max} onClick={() => onChange(value + 1)}><Icon name="plus" size={17}/></button>
   </div>;
 }
 
 export function BuyerGate({ account = false, children }) {
   const { buyer, authError } = useStore();
+  const { t } = useI18n();
   const location = useLocation();
-  if (authError) return <div className="page"><ErrorMessage error={authError}/><Button onClick={() => window.location.reload()}>Try again</Button></div>;
-  if (!buyer) return <p className="loading" role="status">Checking your session…</p>;
+  if (authError) return <div className="page"><ErrorMessage error={authError}/><Button onClick={() => window.location.reload()}>{t("tryAgain")}</Button></div>;
+  if (!buyer) return <p className="loading" role="status">{t("checkingSession")}</p>;
   if (!buyer.verified || (account && !buyer.account)) {
     const next = encodeURIComponent(location.pathname + location.search);
     return <Navigate replace to={"/login?next=" + next}/>;
@@ -91,18 +100,20 @@ export function Notice({ icon = "info", children, tone = "green" }) {
 }
 
 export function ImageLine({ line, children }) {
+  const { t, tx } = useI18n();
   return <div className="image-line">
     {line.image && <img src={line.image} alt=""/>}
-    <div><strong>{line.name}</strong><small>Qty: {line.quantity}{line.unit && " · " + line.unit}</small>{children}</div>
+    <div><strong>{tx(line.name)}</strong><small>{t("qty", { count: numeral(line.quantity) })}{line.unit && " · " + tx(line.unit)}</small>{children}</div>
     <b>{money(line.pricePaise * line.quantity)}</b>
   </div>;
 }
 
-export function Totals({ value, label = "Total", className = "" }) {
+export function Totals({ value, label, className = "" }) {
+  const { t } = useI18n();
   return <dl className={"totals " + className}>
-    <div><dt>Items total</dt><dd>{money(value.subtotalPaise)}</dd></div>
-    <div><dt>Delivery</dt><dd>{value.deliveryPaise ? money(value.deliveryPaise) : "Free"}</dd></div>
-    {value.taxPaise > 0 && <div><dt>Tax</dt><dd>{money(value.taxPaise)}</dd></div>}
-    <div className="grand"><dt>{label}</dt><dd>{money(value.totalPaise)}</dd></div>
+    <div><dt>{t("itemsTotal")}</dt><dd>{money(value.subtotalPaise)}</dd></div>
+    <div><dt>{t("delivery")}</dt><dd>{value.deliveryPaise ? money(value.deliveryPaise) : t("free")}</dd></div>
+    {value.taxPaise > 0 && <div><dt>{t("tax")}</dt><dd>{money(value.taxPaise)}</dd></div>}
+    <div className="grand"><dt>{label || t("total")}</dt><dd>{money(value.totalPaise)}</dd></div>
   </dl>;
 }
