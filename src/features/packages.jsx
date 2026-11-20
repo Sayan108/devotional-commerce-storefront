@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import { Button, Empty, ErrorMessage, Icon, LoadState, Notice, Title } from "../shared/ui";
 import { request, useAction, useApi } from "../shared/api";
+import { assetUrl } from "../env.ts";
 import { dateLabel, artwork, money, numeral } from "../shared/format";
 import { useI18n } from "../shared/i18n";
 import { useStore } from "../shared/store";
@@ -34,10 +35,10 @@ export function PackageDetail() {
     <Title back="/packages" intro={t("packageDetailIntro", { count: numeral(data.drops), cadence })}>{t("packageDetails", { name: tx(data.name) })}</Title>
     <div className="two-column package-detail">
       <div>
-        <img className="page-art" src={data.image} alt={t("thaliAlt")}/>
+        <img className="page-art" src={assetUrl(data.image)} alt={t("thaliAlt")}/>
         <section className="order-section"><h2>{t("eachDrop", { cadence })}</h2>
           <ul className="plan-contents">{data.items.map(item => <li key={item.name}>
-            {item.image ? <img src={item.image} alt=""/> : <Icon name={item.icon} size={29}/>}
+            {item.image ? <img src={assetUrl(item.image)} alt=""/> : <Icon name={item.icon} size={29}/>}
             <span>{tx(item.name)}</span><small>{tx(item.unit)}</small>
           </li>)}</ul>
         </section>

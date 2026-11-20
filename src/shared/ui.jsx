@@ -2,6 +2,7 @@
 import { Link, Navigate, useLocation } from "react-router-dom";
 import { useStore } from "./store";
 import { money, numeral } from "./format";
+import { assetUrl } from "../env.ts";
 import { useI18n } from "./i18n";
 const strokes = {
   menu: <path d="M3 6h18M3 12h18M3 18h18"/>,
@@ -102,7 +103,7 @@ export function Notice({ icon = "info", children, tone = "green" }) {
 export function ImageLine({ line, children }) {
   const { t, tx } = useI18n();
   return <div className="image-line">
-    {line.image && <img src={line.image} alt=""/>}
+    {line.image && <img src={assetUrl(line.image)} alt=""/>}
     <div><strong>{tx(line.name)}</strong><small>{t("qty", { count: numeral(line.quantity) })}{line.unit && " · " + tx(line.unit)}</small>{children}</div>
     <b>{money(line.pricePaise * line.quantity)}</b>
   </div>;

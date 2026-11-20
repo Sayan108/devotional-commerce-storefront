@@ -1,8 +1,9 @@
 ﻿import { useEffect, useRef, useState } from "react";
+import { env } from "../env.ts";
 
 export async function request(path, { method = "GET", body, headers, signal } = {}) {
-  const result = await fetch("/v1" + path, {
-    method, signal, credentials: "same-origin",
+  const result = await fetch(env.apiUrl + "/v1" + path, {
+    method, signal, credentials: "include",
     headers: { ...(body && { "Content-Type": "application/json" }), ...headers },
     ...(body && { body: JSON.stringify(body) })
   });

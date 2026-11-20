@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Link, Navigate, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { Button, Empty, ErrorMessage, Icon, ImageLine, LoadState, Notice, Title, Totals } from "../shared/ui";
 import { request, useAction, useApi } from "../shared/api";
+import { assetUrl } from "../env.ts";
 import { dateLabel, artwork, money, numeral, timeLabel } from "../shared/format";
 import { useI18n } from "../shared/i18n";
 import { useStore } from "../shared/store";
@@ -214,7 +215,7 @@ function OrderCard({ order }) {
   }
   return <article className="panel order-card">
     <Link className="order-card-link" to={root(order)}>
-      <img src={order.lines[0].image} alt=""/>
+      <img src={assetUrl(order.lines[0].image)} alt=""/>
       <div><strong>{order.orderRef}</strong><small>{t("itemCount", { count: numeral(order.lines.reduce((total, line) => total + line.quantity, 0)) })} · {money(order.totalPaise)}</small><small>{t("placedOn", { date: dateLabel(order.placedAt) })}</small></div>
       <Badge order={order}/><Icon name="chevron" size={17}/>
     </Link>

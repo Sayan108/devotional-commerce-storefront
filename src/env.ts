@@ -1,3 +1,8 @@
 export const env = {
-  apiUrl: "http://127.0.0.1:4000"
+  apiUrl: "https://devotional-commerce-backend.onrender.com"
 } as const;
+
+export function assetUrl(path = "") {
+  if (path.startsWith("/media/") || path.startsWith("/admin/")) return env.apiUrl + path;
+  return path;
+}
