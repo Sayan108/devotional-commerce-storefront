@@ -9,7 +9,7 @@ npm run dev
 
 Open `http://127.0.0.1:5173`. The development and preview servers proxy `/v1` and `/media` to the Arghya API at `http://127.0.0.1:4000`. Set `ARGHYA_API_URL` in `.env.local` if the API runs elsewhere.
 
-Run the API for catalog, sign-in, and checkout. [Arghya API](https://github.com/Sayan108/arghya-backend) · [Seller admin](https://github.com/Sayan108/arghya-admin)
+Run the API for catalog, sign-in, and checkout. [Arghya API](https://github.com/Sayan108/devotional-commerce-backend) · [Seller admin](https://github.com/Sayan108/devotional-commerce-admin)
 
 Run `npm run build` to produce `dist/`. In production, route `/v1/*` and `/media/*` on the storefront domain to the API so session cookies stay same-origin. Serve the remaining routes from `dist/` with an `index.html` fallback for client-side routes. Keep private routes out of search indexes.
 
