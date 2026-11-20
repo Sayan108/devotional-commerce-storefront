@@ -131,7 +131,11 @@ html[lang="bn"] .home-hero h1 { line-height:1.22; letter-spacing:0; max-width:11
   .popular-grid, .category-grid, .product-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
   .category-grid { row-gap:11px; }
   .product-card-copy { padding:7px 8px 8px; }
-  .compact .product-card-copy { padding-top:22px; }
+  .popular-grid .product-card.compact { flex-direction:column; }
+  .popular-grid .compact .product-photo { width:100%; aspect-ratio:1.17; }
+  .popular-grid .compact .product-photo img, .popular-grid .compact .catalog-placeholder { height:100%; min-height:0; }
+  .popular-grid .compact .product-card-copy { justify-content:flex-start; padding:9px 8px; }
+  .popular-grid .compact .save-button { top:5px; right:5px; width:39px; height:39px; background:#fdf9f2e7; }
   .house-package { grid-template-columns:1fr; }
   .house-package img { height:170px; min-height:0; }
   .house-package > div { padding:15px; }

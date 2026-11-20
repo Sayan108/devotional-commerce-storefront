@@ -99,6 +99,7 @@ legend { font-weight:700; padding:0; margin-bottom:5px; }
 @media (max-width:759px) {
   .skeleton-detail { grid-template-columns:1fr; }
   .skeleton-package .bone-photo { min-height:170px; }
+  .popular-grid .skeleton-card.compact .product-photo { width:100%; aspect-ratio:1.17; min-height:0; }
 }
 @media (prefers-reduced-motion:no-preference) {
   .bone { animation:bone-shine 1.35s ease-in-out infinite; }
