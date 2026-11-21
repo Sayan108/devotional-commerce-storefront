@@ -108,7 +108,6 @@ export function Verify() {
           <input ref={input} name="code" inputMode="numeric" autoComplete="one-time-code" pattern="[0-9]{6}" maxLength={6} required
             value={code} onChange={event => setCode(event.target.value.replace(/\D/g, ""))}/>
         </label>
-        {challenge.fixtureCode && <small className="fixture-note">{t("demoCode")} <strong>{challenge.fixtureCode}</strong></small>}
         <button type="button" className="text-button" disabled={busy || remaining > 0} onClick={resend}>{remaining > 0 ? t("resendIn", { time: "00:" + String(remaining).padStart(2, "0") }) : t("resend")}</button>
         <ErrorMessage error={error}/>
         <Button className="wide" type="submit" disabled={busy}>{busy ? t("verifying") : t("verifyCode")}</Button>

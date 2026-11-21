@@ -37,7 +37,6 @@
 .otp-slots > span { border:1px solid #a79d90; border-radius:7px; min-height:48px; display:grid; place-items:center; font-size:var(--text-lg); }
 .otp-field input { position:absolute; inset:0; width:100%; opacity:0; }
 .otp-field:focus-within { outline:var(--focus); outline-offset:2px; border-radius:8px; }
-.fixture-note { padding:6px 10px; background:var(--surface); border-radius:6px; color:var(--leaf); }
 .checkout-steps { display:grid; grid-template-columns:repeat(4,1fr); list-style:none; padding:0; margin:0 0 23px; text-align:center; isolation:isolate; }
 .checkout-steps li { display:grid; justify-items:center; gap:5px; position:relative; color:var(--leaf); font-size:var(--text-sm); }
 .checkout-steps li:not(:last-child)::after { position:absolute; content:""; width:100%; left:50%; top:10px; height:1px; background:#c9bdb0; z-index:-1; }

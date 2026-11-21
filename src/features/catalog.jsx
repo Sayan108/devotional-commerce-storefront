@@ -54,36 +54,41 @@ const SectionLink = ({ to, children }) => <Link className="section-link" to={to}
 export function Home() {
   const home = useApi("/home");
   const { location } = useStore();
-  const { t, tx, txName } = useI18n();
+  const { lang, t, tx, txName } = useI18n();
   const poster = assetUrl(home.data?.hero?.poster || "/media/hero-lamp.jpg");
+  const hero = home.data?.hero;
+  const customHero = Boolean(hero?.headlineBn);
   const place = location?.locality ? tx(location.locality) : t("kolkata");
   return <>
     <div className="delivery-bar"><Link to="/delivery"><Icon name="pin" size={20} filled/><span>{t("deliverTo", { place })}</span><Icon name="down" size={16}/></Link></div>
     <section className="home-hero">
       <picture>
-        <source media="(min-width: 760px)" srcSet="/artwork/morning.webp"/>
-        <img src={poster} alt={t("heroAlt")} fetchPriority="high"/>
+        <source media="(min-width: 760px)" srcSet={customHero ? poster : "/artwork/morning.webp"}/>
+        <img src={poster} alt={customHero ? (lang === "bn" ? hero.altBn : hero.alt) : t("heroAlt")} fetchPriority="high"/>
       </picture>
       <HeroMotion/>
-      <div className="home-hero-copy"><h1>{t("heroHeadline")}</h1><Button to="/shop">{t("heroCta")}<Icon name="chevron" size={17}/></Button></div>
+      <div className="home-hero-copy"><h1>{customHero ? (lang === "bn" ? hero.headlineBn : hero.headline) : t("heroHeadline")}</h1><Button to={customHero ? hero.ctaPath : "/shop"}>{customHero ? (lang === "bn" ? hero.ctaBn : hero.cta) : t("heroCta")}<Icon name="chevron" size={17}/></Button></div>
     </section>
     <div className="page home-sections">
-      {home.data ? <>
-        <section aria-labelledby="home-categories">
+      {home.data ? (home.data.sections || ["categories", "featured", "kits"]).map(section => {
+        if (section === "categories") return <section key={section} aria-labelledby="home-categories">
           <div className="section-title"><h2 id="home-categories">{t("shopByCategory")}</h2><SectionLink to="/categories">{t("viewAll")}</SectionLink></div>
           <div className="category-tiles">{home.data.collections.map(category =>
             <Link to={categoryLink(category.slug)} key={category.slug}><CatalogPhoto image={category.thumbnail}/><span>{txName(category)}</span></Link>
           )}</div>
-        </section>
-        <section aria-labelledby="home-popular">
+        </section>;
+        if (section === "featured") return <section key={section} aria-labelledby="home-popular">
           <div className="section-title"><h2 id="home-popular">{t("popular")}</h2><SectionLink to="/shop">{t("viewAll")}</SectionLink></div>
           <div className="popular-grid">{home.data.items.map(product => <ProductCard key={product.id} product={product} compact/>)}</div>
-        </section>
-        <section className="house-package">
+        </section>;
+        if (section === "kits") return <section key={section} className="house-package">
           <img src={artwork("package-hero")} alt={t("packageAlt")} loading="lazy"/>
-          <div><h2>{t("pujaKits")}</h2><p>{t("kitBlurb")}</p><Button to={pujaKitsPath}>{t("browseKits")}</Button></div>
-        </section>
-      </> : <LoadState query={home} kind="home"/>}
+          <div><h2>{(lang === "bn" ? hero?.kitTitleBn : hero?.kitTitle) || t("pujaKits")}</h2>
+            <p>{(lang === "bn" ? hero?.kitBlurbBn : hero?.kitBlurb) || t("kitBlurb")}</p>
+            <Button to={hero?.kitPath || pujaKitsPath}>{(lang === "bn" ? hero?.kitCtaBn : hero?.kitCta) || t("browseKits")}</Button></div>
+        </section>;
+        return null;
+      }) : <LoadState query={home} kind="home"/>}
     </div>
   </>;
 }

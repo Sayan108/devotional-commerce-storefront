@@ -148,7 +148,6 @@ export const ui = {
   verifyMobile: ["Verify your mobile number", "মোবাইল নম্বর যাচাই করুন"],
   enterCode: ["Enter the six-digit code for", "এই নম্বরে আসা ছয় সংখ্যার কোড লিখুন"],
   verificationCode: ["Verification code", "যাচাইকরণ কোড"],
-  demoCode: ["Demo verification code", "ডেমো যাচাইকরণ কোড"],
   resendIn: ["Resend code in {time}", "{time}-এ কোড আবার পাঠান"],
   resend: ["Resend code", "কোড আবার পাঠান"],
   verifying: ["Verifying…", "যাচাই হচ্ছে…"],
