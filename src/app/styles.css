@@ -65,8 +65,8 @@ legend { font-weight:700; padding:0; margin-bottom:5px; }
 .text-button { display:inline-flex; justify-content:center; align-items:center; gap:5px; border:0; padding:6px 0; min-height:37px; color:var(--green); background:transparent; font-weight:700; }
 .text-button:hover { text-decoration:underline; }
 .install-app { font-size:var(--text-sm); }
+.install-button { min-height:44px; padding:8px 14px; margin:4px 0; }
 .install-app p { max-width:32rem; padding-bottom:8px; color:var(--leaf); }
-.menu-install .text-button { min-height:44px; }
 .danger, .form-error, .field-error { color:var(--red); }
 .form-error { font-size:var(--text-sm); }
 .field-error { font-weight:400; font-size:var(--text-xs); }

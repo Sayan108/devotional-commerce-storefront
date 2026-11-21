@@ -59,7 +59,7 @@ export function InstallApp({ className = "" }) {
     }
   }
   return <div className={"install-app " + className}>
-    {(deferredPrompt || ios()) && <button type="button" className="text-button" onClick={install}>{t("installApp")}</button>}
+    {(deferredPrompt || ios()) && <button type="button" className="button install-button" onClick={install}>{t("installApp")}</button>}
     {message && <p role="status">{message}</p>}
   </div>;
 }
