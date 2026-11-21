@@ -6,6 +6,7 @@ import { assetUrl } from "../env.ts";
 import { artwork, isPriced, money, numeral } from "../shared/format";
 import { HeroMotion } from "../shared/heroMotion";
 import { useI18n } from "../shared/i18n";
+import { InstallApp } from "../shared/install";
 import { useBagCatalog, useStore } from "../shared/store";
 
 const sortKeys = [["", "sortPopular"], ["price-asc", "sortLow"], ["price-desc", "sortHigh"], ["name", "sortName"]];
@@ -60,7 +61,7 @@ export function Home() {
   const customHero = Boolean(hero?.headlineBn);
   const place = location?.locality ? tx(location.locality) : t("kolkata");
   return <>
-    <div className="delivery-bar"><Link to="/delivery"><Icon name="pin" size={20} filled/><span>{t("deliverTo", { place })}</span><Icon name="down" size={16}/></Link></div>
+    <div className="delivery-bar"><Link to="/delivery"><Icon name="pin" size={20} filled/><span>{t("deliverTo", { place })}</span><Icon name="down" size={16}/></Link><InstallApp/></div>
     <section className="home-hero">
       <picture>
         <source media="(min-width: 760px)" srcSet={customHero ? poster : "/artwork/morning.webp"}/>

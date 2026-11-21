@@ -1,4 +1,4 @@
-.delivery-bar { width:min(100%,var(--page-width)); margin:auto; padding:0 var(--gutter); }
+.delivery-bar { width:min(100%,var(--page-width)); margin:auto; padding:0 var(--gutter); display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:0 12px; }
 .delivery-bar a { display:inline-flex; align-items:center; gap:8px; min-height:45px; font-weight:700; font-size:var(--text-sm); }
 .delivery-bar svg:first-child { color:var(--red); fill:none; }
 .home-hero { position:relative; max-width:calc(var(--page-width) - 2 * var(--gutter)); min-height:420px; max-height:550px; height:42vw; overflow:hidden; margin:auto; border-radius:16px; display:flex; align-items:center; background:#60371e; isolation:isolate; }

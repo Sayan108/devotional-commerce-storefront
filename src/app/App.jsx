@@ -9,6 +9,7 @@ import { BuyerGate, Button, Empty, Icon, Title } from "../shared/ui";
 import { useStore } from "../shared/store";
 import { useI18n } from "../shared/i18n";
 import { numeral } from "../shared/format";
+import { InstallApp } from "../shared/install";
 
 const mainLinks = [["/shop", "shop"], ["/categories", "categories"], [pujaKitsPath, "pujaKits"], ["/orders", "trackOrder"]];
 const mobileLinks = [["/", "home", "home"], ["/categories", "categories", "grid"], ["/search", "search", "search"], ["/orders", "orders", "box"], ["/account", "account", "user"]];
@@ -68,6 +69,7 @@ function Header() {
     </div>
     {menu && <nav className="menu-panel" id="store-menu" aria-label={t("shopMenu")}>
       {[...mainLinks, ["/wishlist", "savedItems"], ["/account", "myAccount"], ["/delivery", "checkDelivery"]].map(([to, label]) => <NavLink key={to} to={to} onClick={() => setMenu(false)}>{t(label)}<Icon name="chevron" size={17}/></NavLink>)}
+      <InstallApp className="menu-install"/>
     </nav>}
   </header>;
 }
@@ -87,6 +89,7 @@ function Footer() {
     <nav aria-label={t("storeInfo")}>
       <Link to="/delivery">{t("checkDelivery")}</Link><Link to="/help/shipping">{t("shipping")}</Link>
       <Link to="/help/cancellation">{t("cancellation")}</Link><Link to="/help/tracking">{t("orderSupport")}</Link>
+      <InstallApp/>
     </nav>
   </footer>;
 }

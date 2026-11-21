@@ -19,3 +19,4 @@ await mkdir(new URL("../assets/", import.meta.url), { recursive: true });
 await writeFile(new URL("../assets/icon.png", import.meta.url), artwork(1024, 614));
 await writeFile(new URL("../assets/splash.png", import.meta.url), artwork(2732, 614, ricePaper));
 await writeFile(new URL("../public/favicon.png", import.meta.url), artwork(192, 116, ricePaper));
+await writeFile(new URL("../public/pwa-icon-512.png", import.meta.url), artwork(512, 307, ricePaper));

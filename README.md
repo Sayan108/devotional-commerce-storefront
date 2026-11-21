@@ -13,4 +13,6 @@ Run the API for catalog, sign-in, and checkout. [Naivedya API](https://github.co
 
 Run `npm run build` to produce `dist/`. The production build defaults to the hosted API. Set `VITE_API_URL` at build time to use a different API. Set it to an empty string for a same-origin reverse proxy. Serve the frontend with an `index.html` fallback for client-side routes. Keep private routes out of search indexes.
 
+The storefront can be installed as a PWA over HTTPS or on localhost. Supported browsers show an Install app action when they offer an install prompt; on iPhone and iPad, use Share and then Add to Home Screen in Safari. The action is hidden in the installed app and the native Capacitor app. The production web service worker caches only an offline notice, not catalog, account, or checkout data; shopping requires an internet connection.
+
 The UI lives in `src/app`, customer flows in `src/features`, shared utilities in `src/shared`, and storefront artwork in `public/artwork`.
